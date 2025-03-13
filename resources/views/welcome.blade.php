@@ -84,7 +84,7 @@
                             <div>
                                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
                                 <p class="text-white font-semibold text-3xl poetsen-one-regular">Private boat tour</p>
-                                <hr class="bg-[#F2F9FB] w-12 my-2">
+                                <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">Rovinj</span></p>
                             </div>
 
@@ -102,7 +102,7 @@
                             <div>
                                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
                                 <p class="text-white font-semibold text-3xl poetsen-one-regular">Private boat tour</p>
-                                <hr class="bg-[#F2F9FB] w-12 my-2">
+                                <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">Rovinj</span></p>
                             </div>
 
@@ -123,7 +123,7 @@
                             <div class="max-w-[70%]">
                                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
                                 <p class="text-white font-semibold text-3xl poetsen-one-regular">Private boat tour</p>
-                                <hr class="bg-[#F2F9FB] w-12 my-2">
+                                <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">Rovinj</span></p>
                             </div>
 
@@ -141,7 +141,7 @@
                             <div class="max-w-[70%]">
                                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
                                 <p class="text-white font-semibold text-3xl poetsen-one-regular">Private boat tour</p>
-                                <hr class="bg-[#F2F9FB] w-12 my-2">
+                                <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">Rovinj</span></p>
                             </div>
 
@@ -159,7 +159,7 @@
                             <div class="max-w-[70%]">
                                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
                                 <p class="text-white font-semibold text-3xl poetsen-one-regular">Private boat tour</p>
-                                <hr class="bg-[#F2F9FB] w-12 my-2">
+                                <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">Rovinj</span></p>
                             </div>
 
@@ -174,7 +174,7 @@
             </main>
         </div>
 
-        <footer class="pt-20">
+        <footer class="w-full lg:max-w-4xl max-w-[335px] pt-20">
             <div class="flex items-center justify-center gap-10">
                 <img src="/img/footerlogo.svg" />
                 <p class="text-[#004972] work-sans font-medium text-sm w-[328px]">
@@ -182,7 +182,7 @@
                 </p>
             </div>
 
-            <div class="pt-16 flex items-center gap-4">
+            <div class="pt-16 flex items-center justify-center gap-4">
                 <img src="/img/payment-icons/image-1.svg" />
                 <img src="/img/payment-icons/image-2.svg" />
                 <img src="/img/payment-icons/image-3.svg" />
@@ -197,8 +197,8 @@
 
             <hr class="bg-[#E3E3E3] mt-20 mb-5 border-none h-[1px]">
             <div class="flex items-center justify-between w-full">
-                <p class="text-[#004972] font-bold work-sans text-sm">All right reserved ©2025 Booking fleet</p>
-                <p class="text-[#004972] font-bold work-sans text-sm">Created by: <span class="text-[#01A6CD]">PROSPEKT</span></p>
+                <p class="text-[#004972] font-medium work-sans text-sm">All right reserved ©2025 Booking fleet</p>
+                <p class="text-[#004972] font-medium work-sans text-sm">Created by: PROSPEKT</p>
             </div>
         </footer>
     </body>
