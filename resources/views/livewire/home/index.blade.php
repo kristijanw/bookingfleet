@@ -11,30 +11,13 @@
     </div>
     
     <div class="pt-10 flex items-center gap-1.5 flex-wrap">
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
-        <div class="bg-[#F2F9FBBF] text-[#004972] font-normal poetsen-one-regular flex items-center gap-2 py-5 px-8 rounded-xl">
-            <img src="/img/other.svg" class="w-6" />
-            <p>View all</p>
-        </div>
+        <x-ui.category title="View All" icon="/img/other.svg" />
+        <x-ui.category title="Boat excursion" icon="/img/other.svg" />
+        <x-ui.category title="Private yacht tours" icon="/img/other.svg" />
+        <x-ui.category title="Rent a boat" icon="/img/other.svg" />
+        <x-ui.category title="Rent a kayak" icon="/img/other.svg" />
+        <x-ui.category title="Adventures" icon="/img/other.svg" />
+        <x-ui.category title="Other" icon="/img/other.svg" />
     </div>
     
     <div class="pt-10 grid grid-cols-2 gap-10">

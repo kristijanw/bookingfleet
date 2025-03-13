@@ -56,6 +56,8 @@
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @endif
 
+        @fluxAppearance
+
         <style>
             .poetsen-one-regular {
                 font-family: "Poetsen One", sans-serif;
@@ -116,5 +118,7 @@
         </footer>
 
         @vite(['resources/js/app.js'])
+
+        @fluxScripts
     </body>
 </html>
