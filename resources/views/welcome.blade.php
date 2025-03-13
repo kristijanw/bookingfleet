@@ -34,7 +34,14 @@
         <img src="/img/bgheader.jpg" class="absolute w-full top-0 -z-10" />
 
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
-            <img src="/img/logo.svg" />
+            <div class="flex items-center justify-between">
+                <img src="/img/logo.svg" />
+
+                <a href="#" class="relative">
+                    <img src="/img/cart.svg" />
+                    <span class="bg-[#FBBB0E] rounded-full py-1 px-2.5 absolute -right-3 top-0 text-[#004972] work-sans font-semibold">1</span>
+                </a>
+            </div>
         </header>
         <div class="w-full lg:max-w-4xl max-w-[335px] transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex w-full flex-col">
