@@ -28,6 +28,8 @@ class CategoryResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->image()
+                    ->image()
+                    ->optimize('webp')
                     ->directory('category'),
             ]);
     }
@@ -40,6 +42,7 @@ class CategoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
             ])
+            ->reorderable('order_column')
             ->filters([
                 //
             ])

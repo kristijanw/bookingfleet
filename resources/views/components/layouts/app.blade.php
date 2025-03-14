@@ -68,17 +68,24 @@
                 font-family: "Work Sans", sans-serif;
             }
         </style>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     </head>
     <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <img src="/img/bgheader.jpg" class="absolute w-full top-0 -z-10" />
+        <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
+            <img src="{{ $headerImg }}" class="w-full h-full object-cover" />
+            <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
+        </div>
 
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
             <div class="flex items-center justify-between">
-                <img src="/img/logo.svg" />
+                <a href="{{ route('home') }}" wire:navigate>
+                    <img src="/img/logo.svg" />
+                </a>
 
                 <a href="#" class="relative">
                     <img src="/img/cart.svg" />
-                    <span class="bg-[#FBBB0E] rounded-full py-1 px-2.5 absolute -right-3 top-0 text-[#004972] work-sans font-semibold">1</span>
+                    <span class="bg-[#FBBB0E] rounded-full py-1 px-2.5 absolute -right-3 top-0 text-[#004972] work-sans font-semibold">0</span>
                 </a>
             </div>
         </header>
@@ -118,6 +125,8 @@
         </footer>
 
         @vite(['resources/js/app.js'])
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
         @fluxScripts
     </body>

@@ -11,23 +11,19 @@
     </div>
     
     <div class="pt-10 flex items-center gap-1.5 flex-wrap">
-        <x-ui.category title="View All" icon="/img/other.svg" />
-        <x-ui.category title="Boat excursion" icon="/img/other.svg" />
-        <x-ui.category title="Private yacht tours" icon="/img/other.svg" />
-        <x-ui.category title="Rent a boat" icon="/img/other.svg" />
-        <x-ui.category title="Rent a kayak" icon="/img/other.svg" />
-        <x-ui.category title="Adventures" icon="/img/other.svg" />
-        <x-ui.category title="Other" icon="/img/other.svg" />
+        @foreach (App\Models\Category::orderBy('order_column', 'asc')->get() as $cat)
+            <x-ui.category wire:key="{{ $cat->id }}" :title="$cat->title" :icon="$cat->image" />
+        @endforeach
     </div>
     
     <div class="pt-10 grid grid-cols-2 gap-10">
-        <x-ui.card category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rijeka" price="40" />
-        <x-ui.card category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rovinj" price="55" />
+        <x-ui.card id="1" category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rijeka" price="40" />
+        <x-ui.card id="1" category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rovinj" price="55" />
     </div>
     
     <div class="pt-10 grid grid-cols-3 gap-8">
-        <x-ui.card category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rijeka" price="40" />
-        <x-ui.card category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rovinj" price="55" />
-        <x-ui.card category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Pula" price="60" />
+        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rijeka" price="40" />
+        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rovinj" price="55" />
+        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Pula" price="60" />
     </div>
 </div>

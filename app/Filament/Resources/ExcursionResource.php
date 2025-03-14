@@ -65,8 +65,10 @@ class ExcursionResource extends Resource
 
                     Forms\Components\FileUpload::make('gallery')
                         ->required()
-                        ->multiple()
                         ->disk('public')
+                        ->image()
+                        ->multiple()
+                        ->optimize('webp')
                         ->directory('excursion')
                         ->panelLayout('grid')
                         ->maxFiles(10)
@@ -113,6 +115,7 @@ class ExcursionResource extends Resource
                         ->schema([
                             Forms\Components\FileUpload::make('header_img')
                                 ->image()
+                                ->optimize('webp')
                                 ->disk('public')
                                 ->directory('excursion')
                                 ->required(),

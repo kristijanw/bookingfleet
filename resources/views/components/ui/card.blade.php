@@ -1,4 +1,5 @@
 @props([
+    'id',
     'category',
     'title',
     'departure',
@@ -6,7 +7,7 @@
     'image_url'
 ])
 
-<a href="#" x-on:click="$flux.toast('Your changes have been saved.')" class="bg-red-500 rounded-xl h-[485px] py-6 px-5 relative" style="box-shadow: 8px 12px 44px 8px #00000040; background: linear-gradient(180deg, rgba(0, 39, 62, 0) 55.26%, rgba(0, 39, 62, 0.8) 89.07%), url('{{ $image_url }}'); background-size: cover; background-position: center;">
+<a href="{{ route('excursion', '0195943b-996e-7081-b455-fd3ce021d6b4') }}" wire:navigate x-on:click="$flux.toast('Your changes have been saved.')" class="bg-red-500 rounded-xl h-[485px] py-6 px-5 relative" style="box-shadow: 8px 12px 44px 8px #00000040; background: linear-gradient(180deg, rgba(0, 39, 62, 0) 55.26%, rgba(0, 39, 62, 0.8) 89.07%), url('{{ $image_url }}'); background-size: cover; background-position: center;">
     <div class="flex flex-col items-start justify-between h-full">
         <span class="bg-[#F2F9FB] py-2 px-4 text-[#004972] text-sm font-bold work-sans rounded-4xl">{{ $category }}</span>
 
