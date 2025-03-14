@@ -54,18 +54,23 @@
             <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
             <p class="poetsen-one-regular text-[#004972] text-lg">Rent date</p>
+
+            <div x-data="calendarComponent({{ json_encode($availableDates) }}, '{{ $excursion->id }}')" x-init="initCalendar()" class="flex justify-center mt-5">
+                <div x-ref="calendar"></div>
+            </div>
+
+            <hr class="border-none h-[1px] bg-[#E3E3E3] mt-8 mb-4">
+
+            <p class="poetsen-one-regular text-[#004972] text-lg">Choose time</p>
+
+            @if (!empty($times))
+                <div class="flex items-center gap-3">
+                    @foreach ($times as $time)
+                        <spam>{{ $time }}</spam>
+                    @endforeach
+                </div>
+            @endif
+            
         </div>
     </div>    
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        new Swiper(".swiper", {
-            loop: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
-    });
-</script>

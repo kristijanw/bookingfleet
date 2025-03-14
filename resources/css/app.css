@@ -14,3 +14,57 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+
+.flatpickr-calendar {
+    background: #F2F9FB !important;
+    border-radius: 16px !important;
+    padding: 24px 16px 16px 16px !important;
+}
+
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+    top: 24px !important;
+}
+
+.flatpickr-calendar .flatpickr-weekdaycontainer > span {
+    color: #01A6CD !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+}
+
+.flatpickr-day {
+    font-weight: bold;
+    border-radius: 0 !important;
+    transition: 0.3s;
+}
+
+.flatpickr-day.selected:before {
+    content: "";
+    background-color: #46FF3D57 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.flatpickr-day.selected {
+    background-color: #004972 !important;
+    border-radius: 100% !important;
+    color: #fff;
+}
+.flatpickr-day.flatpickr-disabled {
+    color: #6A6A6D !important;
+    background: #F2F9FB !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+
+.flatpickr-day.available-date {
+    background-color: #46FF3D57;
+    color: #6A6A6D;
+}
+
+.flatpickr-day.available-date:hover {
+    background-color: #004972;
+}

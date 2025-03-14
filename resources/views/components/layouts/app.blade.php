@@ -70,6 +70,9 @@
         </style>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     </head>
     <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
@@ -127,6 +130,9 @@
         @vite(['resources/js/app.js'])
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/en.js"></script>
 
         @fluxScripts
     </body>
