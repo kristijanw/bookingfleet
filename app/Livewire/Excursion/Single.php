@@ -4,6 +4,7 @@ namespace App\Livewire\Excursion;
 
 use App\Models\Excursion;
 use Carbon\Carbon;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Single extends Component
@@ -21,7 +22,8 @@ class Single extends Component
         ];
     }
 
-    public function postaviDatum($datum, $id)
+    #[On('fetchStartTime')]
+    public function fetchStartTime($datum, $id)
     {
         $excursionTime = Excursion::with('excursionTime')->where('id', $id)->first();
     
@@ -40,8 +42,6 @@ class Single extends Component
                 $this->times = array_merge($this->times, $time->start_time);
             }
         }
-
-        $this->emit('refreshCalendarAndSlider');
     }
     
 

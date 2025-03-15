@@ -3,7 +3,7 @@
         <div class="relative rounded-2xl p-8 bg-white space-y-8">
             <h1 class="poetsen-one-regular text-[#004972] text-5xl">{{ $excursion->title }}</h1>
 
-            <div class="swiper relative rounded-2xl">
+            <div wire:ignore class="swiper relative rounded-2xl">
                 <span class="absolute top-4 left-4 bg-[#F2F9FB] py-2 px-4 z-10 text-[#004972] text-sm font-bold work-sans rounded-4xl">
                     {{ $excursion->category->title }}
                 </span>
@@ -55,7 +55,7 @@
 
             <p class="poetsen-one-regular text-[#004972] text-lg">Rent date</p>
 
-            <div x-data="calendarComponent({{ json_encode($availableDates) }}, '{{ $excursion->id }}')" x-init="initCalendar()" class="flex justify-center mt-5">
+            <div wire:ignore x-data="calendarComponent({{ json_encode($availableDates) }}, '{{ $excursion->id }}')" x-init="initCalendar()" class="flex justify-center mt-5">
                 <div x-ref="calendar"></div>
             </div>
 
@@ -66,7 +66,7 @@
             @if (!empty($times))
                 <div class="flex items-center gap-3">
                     @foreach ($times as $time)
-                        <spam>{{ $time }}</spam>
+                        <flux:badge variant="solid" color="lime">{{ $time }}</flux:badge>
                     @endforeach
                 </div>
             @endif
@@ -74,3 +74,52 @@
         </div>
     </div>    
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (typeof Swiper !== "undefined" && !window.swiperInitialized) {
+            window.swiperInitialized = true;
+            new Swiper(".swiper", {
+                loop: true,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        }
+    });
+
+    function calendarComponent(availableDates, excursionId) {
+        return {
+            availableDates: availableDates,
+            excursionId: excursionId,
+            initCalendar() {
+                // Provjera da li je kalendar već inicijaliziran
+                if (this.$refs.calendar._flatpickr) return;
+
+                let firstAvailableDate = this.availableDates.length > 0 ? this.availableDates[0] : null;
+
+                let fp = flatpickr(this.$refs.calendar, {
+                    locale: 'en',
+                    inline: true,
+                    enable: this.availableDates,
+                    dateFormat: "Y-m-d",
+                    onDayCreate: function(dObj, dStr, fp, dayElem) {
+                        let date = fp.formatDate(dayElem.dateObj, "Y-m-d");
+                        
+                        if (availableDates.includes(date)) {
+                            dayElem.classList.add('available-date');
+                        }
+                    },
+                    onChange: (selectedDates, dateStr, instance) => {
+                        Livewire.dispatch('fetchStartTime', { datum: dateStr, id: this.excursionId });
+                    }
+                });
+
+                if (firstAvailableDate) {
+                    fp.jumpToDate(firstAvailableDate);
+                }
+            }
+        };
+    }
+</script>
