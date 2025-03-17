@@ -20,13 +20,20 @@
     background: #F2F9FB !important;
     border-radius: 16px !important;
     padding: 24px 16px 16px 16px !important;
+    width: 100% !important;
+    box-shadow: none !important;
 }
 
-.flatpickr-calendar .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+.flatpickr-calendar .flatpickr-innerContainer {
+    justify-content: center !important;
+}
+
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
     top: 24px !important;
 }
 
-.flatpickr-calendar .flatpickr-weekdaycontainer > span {
+.flatpickr-calendar .flatpickr-weekdaycontainer>span {
     color: #01A6CD !important;
     font-weight: 700 !important;
     font-size: 12px !important;
@@ -48,11 +55,12 @@
     bottom: 0;
     z-index: -1;
 }
+
 .flatpickr-day.selected {
     background-color: #004972 !important;
-    border-radius: 100% !important;
     color: #fff;
 }
+
 .flatpickr-day.flatpickr-disabled {
     color: #6A6A6D !important;
     background: #F2F9FB !important;
@@ -66,5 +74,6 @@
 }
 
 .flatpickr-day.available-date:hover {
-    background-color: #004972;
+    background-color: #39cc3157;
+    color: #F2F9FB;
 }

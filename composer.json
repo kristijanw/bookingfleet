@@ -3,25 +3,28 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
         "directorytree/authorization": "^1.3",
-        "filament/filament": "^3.3",
+        "filament/filament": "^3.3.4",
         "joshembling/image-optimizer": "^1.6",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "*",
         "laravel/tinker": "^2.10.1",
-        "livewire/flux": "^2.0"
+        "livewire/flux": "^2.0.6"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24.1",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.21.2",
         "laravel/sail": "^1.41",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^3.7",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.7",
+        "pestphp/pest": "^3.7.4",
         "pestphp/pest-plugin-laravel": "^3.1"
     },
     "autoload": {
@@ -32,9 +35,6 @@
         }
     },
     "autoload-dev": {
-        "files": [
-            "app/IntelephenseHelper.php"
-        ],
         "psr-4": {
             "Tests\\": "tests/"
         }

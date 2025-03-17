@@ -1,6 +1,6 @@
 <div class="pt-20">
     <div class="grid grid-cols-2 gap-4 auto-rows-auto items-start">
-        <div class="relative rounded-2xl p-8 bg-white space-y-8">
+        <div class="relative rounded-2xl p-6 bg-white space-y-8">
             <h1 class="poetsen-one-regular text-[#004972] text-5xl">{{ $excursion->title }}</h1>
 
             <div wire:ignore class="swiper relative rounded-2xl">
@@ -22,7 +22,7 @@
 
             <p>{!! $excursion->description !!}</p>
         </div>
-        <div class="relative rounded-2xl p-8 bg-white">
+        <div class="relative rounded-2xl p-6 bg-white">
             <p class="poetsen-one-regular text-[#004972] text-lg">Details</p>
 
             <div class="pt-4 flex flex-col gap-4 text-[#004972] work-sans font-medium">
@@ -49,6 +49,8 @@
                         @endforeach
                     </div>
                 </div>
+                
+                <p class="work-sans font-bold italic text-sm">*  Possible deviations in terms due to weather conditions.</p>
             </div>
 
             <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
@@ -64,13 +66,98 @@
             <p class="poetsen-one-regular text-[#004972] text-lg">Choose time</p>
 
             @if (!empty($times))
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 mt-5">
                     @foreach ($times as $time)
-                        <flux:badge variant="solid" color="lime">{{ $time }}</flux:badge>
+                        <flux:badge as="button" wire:click="setStartTime('{{ $time }}')" variant="pill"
+                            class="!font-bold"
+                            :class="$time == $selectedStartTime ? '!bg-[#004972] !text-[#F2F9FB]' : '!bg-[#F2F9FB] !text-[#01A6CD]'"
+                        >
+                            {{ $time }}
+                        </flux:badge>
                     @endforeach
                 </div>
             @endif
-            
+
+            <p class="poetsen-one-regular text-[#004972] text-lg mt-5">Reservation details</p>
+
+            <div class="bg-[#F2F9FB] rounded-2xl p-8 mt-5">
+                <div>
+                    <div class="flex items-center justify-between gap-11">
+                        <div>
+                            <p class="work-sans text-[#01A6CD] font-bold text-sm">How many adults:</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <flux:button wire:click="updateCount('countAdults', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                            <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countAdults }}</flux:button>
+                            <flux:button wire:click="updateCount('countAdults', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                        </div>
+                    </div>
+                    @for ($i = 1; $i <= $countAdults; $i++)
+                        <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] work-sans font-medium">
+                            <p>Person {{ $i }}</p>
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-2">
+                                    <label for="adult_eat_meat_{{ $i }}" class="text-sm font-medium text-[#004972]">Meat</label>
+                                    <input id="adult_eat_meat_{{ $i }}" type="radio" name="adult_eat_{{ $i }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <label for="adult_eat_fish_{{ $i }}" class="text-sm font-medium text-[#004972]">Fish</label>
+                                    <input id="adult_eat_fish_{{ $i }}" type="radio" name="adult_eat_{{ $i }}" checked class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <label for="adult_eat_vege_{{ $i }}" class="text-sm font-medium text-[#004972]">Vege</label>
+                                    <input id="adult_eat_vege_{{ $i }}" type="radio" name="adult_eat_{{ $i }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+
+                <div class="mt-10">
+                    <div class="flex items-center justify-between gap-11">
+                        <div>
+                            <p class="work-sans text-[#01A6CD] font-bold text-sm">How many children:</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <flux:button wire:click="updateCount('countChildren', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                            <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildren }}</flux:button>
+                            <flux:button wire:click="updateCount('countChildren', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                        </div>
+                    </div>
+                    @for ($i = 1; $i <= $countChildren; $i++)
+                        <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] work-sans font-medium">
+                            <p>Person {{ $i }}</p>
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-2">
+                                    <label for="children_eat_meat_{{ $i }}" class="text-sm font-medium text-[#004972]">Meat</label>
+                                    <input id="children_eat_meat_{{ $i }}" type="radio" name="children_eat_{{ $i }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <label for="children_eat_fish_{{ $i }}" class="text-sm font-medium text-[#004972]">Fish</label>
+                                    <input id="children_eat_fish_{{ $i }}" type="radio" name="children_eat_{{ $i }}" checked class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <label for="children_eat_vege_{{ $i }}" class="text-sm font-medium text-[#004972]">Vege</label>
+                                    <input id="children_eat_vege_{{ $i }}" type="radio" name="children_eat_{{ $i }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-[#7E7E7E] focus:ring-[#01A6CD]">
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+
+                <div class="mt-10">
+                    <div class="flex items-center justify-between gap-11">
+                        <div>
+                            <p class="work-sans text-[#01A6CD] font-bold text-sm">Childrens (under 3 yrs)</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <flux:button wire:click="updateCount('countChildrenUnder', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                            <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildrenUnder }}</flux:button>
+                            <flux:button wire:click="updateCount('countChildrenUnder', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>    
 </div>

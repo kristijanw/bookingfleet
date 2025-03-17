@@ -74,15 +74,15 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     </head>
-    <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+    <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex py-6 lg:py-8 items-center lg:justify-center min-h-screen flex-col">
         <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
             <img src="{{ $headerImg }}" class="w-full h-full object-cover" />
             <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
         </div>
 
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
+        <header class="w-full lg:max-w-[952px] max-w-[335px] text-sm mb-6">
             <div class="flex items-center justify-between">
-                <a href="{{ route('home') }}" wire:navigate>
+                <a href="{{ route('home') }}">
                     <img src="/img/logo.svg" />
                 </a>
 
@@ -93,13 +93,13 @@
             </div>
         </header>
 
-        <div class="w-full lg:max-w-4xl max-w-[335px] transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
+        <div class="w-full lg:max-w-[952px] max-w-[335px] transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex w-full flex-col">
                 {{ $slot }}
             </main>
         </div>
 
-        <footer class="w-full lg:max-w-4xl max-w-[335px] pt-20">
+        <footer class="w-full lg:max-w-[952px] max-w-[335px] pt-20">
             <div class="flex items-center justify-center gap-10">
                 <img src="/img/footerlogo.svg" />
                 <p class="text-[#004972] work-sans font-medium text-sm w-[328px]">
