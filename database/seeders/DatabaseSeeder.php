@@ -17,11 +17,13 @@ class DatabaseSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'Super Admin',
             'email' => 'localho2020@gmail.com',
+            'password' => 'adminroot'
         ]);
 
         $adminUser = User::create([
             'name' => 'Admin',
             'email' => 'test@test.com',
+            'password' => 'adminroot'
         ]);
 
         // ROLES
