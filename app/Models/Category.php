@@ -13,4 +13,8 @@ class Category extends Model
         'title',
         'image',
     ];
+
+    protected $attributes = [
+        'order_column' => 0,
+    ];
 }
