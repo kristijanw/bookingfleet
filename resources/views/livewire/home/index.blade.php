@@ -16,14 +16,33 @@
         @endforeach
     </div>
     
-    <div class="pt-10 grid grid-cols-2 gap-10">
-        <x-ui.card id="1" category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rijeka" price="40" />
-        <x-ui.card id="1" category="Boat excursion" image_url="/img/test.jpg" title="Private boat tour" departure="Rovinj" price="55" />
+    <div x-cloak x-show="@json(App\Models\Excursion::count() > 0)">
+        <div class="pt-10 grid grid-cols-2 gap-10">
+            @foreach (App\Models\Excursion::orderBy('created_at', 'desc')->limit(2)->get() as $excursion)
+                <x-ui.card 
+                    id="{{ $excursion->id }}" 
+                    category="{{ $excursion->category->title }}" 
+                    title="{{ $excursion->title }}" 
+                    departure="{{ $excursion->google_maps_url ?? 'test' }}" 
+                    price="{{ $excursion->price }}" 
+                    image_url="{{ $excursion->header_img }}" 
+                />
+            @endforeach
+        </div>
     </div>
     
-    <div class="pt-10 grid grid-cols-3 gap-8">
-        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rijeka" price="40" />
-        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Rovinj" price="55" />
-        <x-ui.card id="1" category="Boat excursion" image_url="/img/test1.jpg" title="Private boat tour" departure="Pula" price="60" />
+    <div x-cloak x-show="@json(App\Models\Excursion::count() > 2)">
+        <div class="pt-10 grid grid-cols-3 gap-8">
+            @foreach (App\Models\Excursion::orderBy('created_at', 'desc')->limit(3)->get() as $excursion)
+                <x-ui.card 
+                    id="{{ $excursion->id }}" 
+                    category="{{ $excursion->category->title }}" 
+                    title="{{ $excursion->title }}" 
+                    departure="{{ $excursion->google_maps_url ?? 'test' }}" 
+                    price="{{ $excursion->price }}" 
+                    image_url="{{ $excursion->header_img }}" 
+                />
+            @endforeach
+        </div>
     </div>
 </div>

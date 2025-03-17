@@ -74,13 +74,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     </head>
-    <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex py-6 lg:py-8 items-center lg:justify-center min-h-screen flex-col">
+    <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex py-6 lg:py-8 items-center lg:justify-center min-h-screen flex-col work-sans">
         <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
             <img src="{{ $headerImg }}" class="w-full h-full object-cover" />
             <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
         </div>
 
-        <header class="w-full lg:max-w-[952px] max-w-[335px] text-sm mb-6">
+        <header class="w-full lg:max-w-[952px] max-w-3xl text-sm mb-6">
             <div class="flex items-center justify-between">
                 <a href="{{ route('home') }}">
                     <img src="/img/logo.svg" />
@@ -93,13 +93,13 @@
             </div>
         </header>
 
-        <div class="w-full lg:max-w-[952px] max-w-[335px] transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
+        <div class="w-full lg:max-w-[952px] max-w-3xl transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex w-full flex-col">
                 {{ $slot }}
             </main>
         </div>
 
-        <footer class="w-full lg:max-w-[952px] max-w-[335px] pt-20">
+        <footer class="w-full lg:max-w-[952px] max-w-3xl pt-20">
             <div class="flex items-center justify-center gap-10">
                 <img src="/img/footerlogo.svg" />
                 <p class="text-[#004972] work-sans font-medium text-sm w-[328px]">
@@ -135,5 +135,33 @@
         <script src="https://npmcdn.com/flatpickr/dist/l10n/en.js"></script>
 
         @fluxScripts
+
+        <div
+            x-data="noticesHandler()"
+            class="fixed inset-0 flex flex-col-reverse items-end justify-start h-screen w-screen"
+            @notice.window="add($event.detail)"
+            style="pointer-events:none">
+            <template x-for="notice of notices" :key="notice.id">
+                <div
+                    x-show="visible.includes(notice)"
+                    x-transition:enter="transition ease-in duration-200"
+                    x-transition:enter-start="transform opacity-0 translate-y-2"
+                    x-transition:enter-end="transform opacity-100"
+                    x-transition:leave="transition ease-out duration-500"
+                    x-transition:leave-start="transform translate-x-0 opacity-100"
+                    x-transition:leave-end="transform translate-x-full opacity-0"
+                    @click="remove(notice.id)"
+                    class="rounded mb-4 mr-6 w-56  h-16 flex items-center justify-center text-white shadow-lg font-bold text-lg cursor-pointer"
+                    :class="{
+                        'bg-green-500': notice.type === 'success',
+                        'bg-blue-500': notice.type === 'info',
+                        'bg-orange-500': notice.type === 'warning',
+                        'bg-red-500': notice.type === 'error',
+                    }"
+                    style="pointer-events:all"
+                    x-text="notice.text">
+                </div>
+            </template>
+        </div>
     </body>
 </html>
