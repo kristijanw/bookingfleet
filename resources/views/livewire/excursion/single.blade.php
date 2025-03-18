@@ -37,7 +37,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <img src="/img/boat.svg" />
-                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $excursion->boat_capacity == '0' }} seats
+                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $excursion->boat_capacity ?? '0' }} seats
                 </div>
                 <div class="flex flex-col items-start">
                     <div class="flex items-center gap-2">
@@ -62,7 +62,9 @@
                 <div x-ref="calendar"></div>
             </div>
 
-            <hr class="border-none h-[1px] bg-[#E3E3E3] mt-8 mb-4">
+            <p class="text-[#004972] font-bold text-sm text-right mt-6">{{ $excursion->boat_capacity }} seat avilable</p>
+
+            <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
             <form wire:submit="save">
                 <p class="poetsen-one-regular text-[#004972] text-lg">Choose time</p>
