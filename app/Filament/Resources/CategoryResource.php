@@ -27,9 +27,6 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required(),
                 Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->image()
-                    ->optimize('webp')
                     ->directory('category'),
             ]);
     }

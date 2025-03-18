@@ -15,6 +15,20 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+:is(.\*\:data-flux-field\:mb-3>*)[data-flux-field] {
+    margin-bottom: 0;
+    gap: 4px;
+}
+
+ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accent\)\] {
+    background-color: transparent;
+    border-color: #7E7E7E;
+}
+
+.bg-\[var\(--color-accent-foreground\)\] {
+    background-color: #01A6CD;
+}
+
 
 .flatpickr-calendar {
     background: #F2F9FB !important;
@@ -26,6 +40,14 @@
 
 .flatpickr-calendar .flatpickr-innerContainer {
     justify-content: center !important;
+    border-top: 1px solid #E3E3E3;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.flatpickr-calendar span.prevMonthDay,
+.flatpickr-calendar span.nextMonthDay {
+    color: #CDCDCD !important;
 }
 
 .flatpickr-calendar .flatpickr-months .flatpickr-prev-month,
@@ -57,8 +79,18 @@
 }
 
 .flatpickr-day.selected {
-    background-color: #004972 !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.flatpickr-day.selected:after {
+    content: "";
     color: #fff;
+    background-color: #004972 !important;
+    position: absolute;
+    inset: 5px;
+    border-radius: 100%;
+    z-index: -1;
 }
 
 .flatpickr-day.flatpickr-disabled {

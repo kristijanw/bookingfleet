@@ -28,15 +28,16 @@
             <div class="pt-4 flex flex-col gap-4 text-[#004972] font-medium">
                 <div class="flex items-center gap-2">
                     <img src="/img/globe.svg" />
-                    <span class="text-[#01A6CD] font-bold">Departure:</span> Beach Center
+                    <span class="text-[#01A6CD] font-bold">Departure:</span>
+                    <a class="underline" href="{{ $excursion->google_maps_url }}" target="_blank">{{ $excursion->departure ?? 'None' }}</a>
                 </div>
                 <div class="flex items-center gap-2">
                     <img src="/img/clock.svg" />
-                    <span class="text-[#01A6CD] font-bold">Duration:</span> 4 hours
+                    <span class="text-[#01A6CD] font-bold">Duration:</span> {{ $excursion->duration ?? '0' }} hours
                 </div>
                 <div class="flex items-center gap-2">
                     <img src="/img/boat.svg" />
-                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $excursion->boat_capacity }} seats
+                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $excursion->boat_capacity == '0' }} seats
                 </div>
                 <div class="flex flex-col items-start">
                     <div class="flex items-center gap-2">
@@ -70,8 +71,7 @@
                     <div class="flex items-center gap-3 mt-5">
                         @foreach ($times as $time)
                             <flux:badge as="button" wire:click="setStartTime('{{ $time }}')" variant="pill"
-                                class="!font-bold"
-                                :class="$time == $chooseTime ? '!bg-[#004972] !text-[#F2F9FB]' : '!bg-[#F2F9FB] !text-[#01A6CD]'"
+                                :class="$time == $chooseTime ? '!bg-[#004972] !text-[#F2F9FB] !font-bold' : '!bg-[#F2F9FB] !text-[#01A6CD] !font-bold'"
                             >
                                 {{ $time }}
                             </flux:badge>
@@ -90,8 +90,11 @@
                     <flux:heading class="flex items-center gap-2">
                         <p class="poetsen-one-regular text-[#004972] text-lg">Reservation details</p>
 
-                        <flux:tooltip toggleable position="bottom" class="!bg-white">
-                            <flux:button icon="information-circle" size="sm" />
+                        <flux:tooltip toggleable position="bottom">
+                            <flux:button size="sm" class="!bg-white !border-none !text-red-500 !shadow-none !p-0">
+                                <img src="/img/information-circle.svg" />
+                            </flux:button>
+
 
                             <flux:tooltip.content class="max-w-[20rem] space-y-2">
                                 <p>For US businesses, enter your 9-digit Employer Identification Number (EIN) without hyphens.</p>
@@ -108,28 +111,19 @@
                                 <p class="text-[#01A6CD] font-bold text-sm">How many adults:</p>
                             </div>
                             <div class="flex items-center gap-1">
-                                <flux:button wire:click="updateCount('countAdults', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countAdults }}</flux:button>
-                                <flux:button wire:click="updateCount('countAdults', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button wire:click="updateCount('countAdults', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countAdults }}</flux:button>
+                                <flux:button wire:click="updateCount('countAdults', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
                         @for ($i = 0; $i < $countAdults; $i++)
                             <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] text-sm font-medium">
                                 <p>Person {{ $i + 1 }}</p>
-                                <div class="flex items-center gap-4">
-                                    <div class="flex items-center gap-2">
-                                        <label for="adult_eat_meat_{{ $i }}" class="text-sm font-medium text-[#004972]">Meat</label>
-                                        <input id="adult_eat_meat_{{ $i }}" type="radio" wire:model="adult_eat.{{ $i }}" value="meat" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <label for="adult_eat_fish_{{ $i }}" class="text-sm font-medium text-[#004972]">Fish</label>
-                                        <input id="adult_eat_fish_{{ $i }}" type="radio" wire:model="adult_eat.{{ $i }}" value="fish" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <label for="adult_eat_vege_{{ $i }}" class="text-sm font-medium text-[#004972]">Vege</label>
-                                        <input id="adult_eat_vege_{{ $i }}" type="radio" wire:model="adult_eat.{{ $i }}" value="vege" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                </div>
+                                <flux:radio.group wire:model="adult_eat.{{ $i }}" class="flex items-center gap-3">
+                                    <flux:radio value="meat" label="Meat" />
+                                    <flux:radio value="fish" label="Fish" checked  />
+                                    <flux:radio value="vege" label="Vege"  />
+                                </flux:radio.group>
                             </div>
                         @endfor
                     </div>
@@ -140,28 +134,19 @@
                                 <p class="text-[#01A6CD] font-bold text-sm">How many children:</p>
                             </div>
                             <div class="flex items-center gap-1">
-                                <flux:button wire:click="updateCount('countChildren', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildren }}</flux:button>
-                                <flux:button wire:click="updateCount('countChildren', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button wire:click="updateCount('countChildren', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildren }}</flux:button>
+                                <flux:button wire:click="updateCount('countChildren', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
                         @for ($i = 0; $i < $countChildren; $i++)
                             <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] font-medium">
                                 <p>Person {{ $i + 1 }}</p>
-                                <div class="flex items-center gap-4">
-                                    <div class="flex items-center gap-2">
-                                        <label for="children_eat_meat_{{ $i }}" class="text-sm font-medium text-[#004972]">Meat</label>
-                                        <input id="children_eat_meat_{{ $i }}" type="radio" wire:model="children_eat.{{ $i }}" value="meat" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <label for="children_eat_fish_{{ $i }}" class="text-sm font-medium text-[#004972]">Fish</label>
-                                        <input id="children_eat_fish_{{ $i }}" type="radio" wire:model="children_eat.{{ $i }}" value="fish" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <label for="children_eat_vege_{{ $i }}" class="text-sm font-medium text-[#004972]">Vege</label>
-                                        <input id="children_eat_vege_{{ $i }}" type="radio" wire:model="children_eat.{{ $i }}" value="vege" class="w-4 h-4 text-blue-600">
-                                    </div>
-                                </div>
+                                <flux:radio.group wire:model="children_eat.{{ $i }}" class="flex items-center gap-3">
+                                    <flux:radio value="meat" label="Meat" />
+                                    <flux:radio value="fish" label="Fish" checked  />
+                                    <flux:radio value="vege" label="Vege"  />
+                                </flux:radio.group>
                             </div>
                         @endfor
                     </div>
@@ -172,9 +157,9 @@
                                 <p class="work-sans text-[#01A6CD] text-sm"><span class="font-bold">Childrens</span> (under 3 yrs)</p>
                             </div>
                             <div class="flex items-center gap-1">
-                                <flux:button wire:click="updateCount('countChildrenUnder', 'decrement')" icon="minus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildrenUnder }}</flux:button>
-                                <flux:button wire:click="updateCount('countChildrenUnder', 'increment')" icon="plus" variant="primary" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button wire:click="updateCount('countChildrenUnder', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
+                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildrenUnder }}</flux:button>
+                                <flux:button wire:click="updateCount('countChildrenUnder', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
                     </div>
@@ -245,20 +230,19 @@
             availableDates: availableDates,
             excursionId: excursionId,
             initCalendar() {
-                // Provjera da li je kalendar već inicijaliziran
                 if (this.$refs.calendar._flatpickr) return;
 
-                let firstAvailableDate = this.availableDates.length > 0 ? this.availableDates[0] : null;
+                let firstAvailableDate = this.availableDates != null && this.availableDates.length > 0 ? this.availableDates[0] : null;
 
                 let fp = flatpickr(this.$refs.calendar, {
                     locale: 'en',
                     inline: true,
-                    enable: this.availableDates,
+                    enable: this.availableDates && this.availableDates.length > 0 ? this.availableDates : [],
                     dateFormat: "Y-m-d",
                     onDayCreate: function(dObj, dStr, fp, dayElem) {
                         let date = fp.formatDate(dayElem.dateObj, "Y-m-d");
                         
-                        if (availableDates.includes(date)) {
+                        if (availableDates != null && availableDates.includes(date)) {
                             dayElem.classList.add('available-date');
                         }
                     },

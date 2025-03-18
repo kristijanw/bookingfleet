@@ -42,6 +42,7 @@ class ExcursionResource extends Resource
                         ->prefix('EUR'),
 
                     Forms\Components\TextInput::make('google_maps_url'),
+                    Forms\Components\TextInput::make('departure'),
 
                     Forms\Components\TextInput::make('boat_capacity')
                         ->required()
@@ -56,6 +57,8 @@ class ExcursionResource extends Resource
                         ->default('no')
                         ->inline()
                         ->inlineLabel(false),
+
+                    Forms\Components\TextInput::make('duration')->numeric(),
 
                     Forms\Components\Repeater::make('included_in_price')
                         ->simple(

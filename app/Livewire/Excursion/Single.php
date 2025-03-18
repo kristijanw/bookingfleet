@@ -111,16 +111,16 @@ class Single extends Component
     {
         $this->validate();
 
-        // dd([
-        //     'chooseTime' => $this->chooseTime,
-        //     'countAdults' => $this->countAdults,
-        //     'countChildren' => $this->countChildren,
-        //     'countChildrenUnder' => $this->countChildrenUnder,
-        //     'adult_eat' => $this->adult_eat,
-        //     'children_eat' => $this->children_eat,
-        //     'email' => $this->email,
-        //     'phone' => $this->phone,
-        // ]);
+        dd([
+            'chooseTime' => $this->chooseTime,
+            'countAdults' => $this->countAdults,
+            'countChildren' => $this->countChildren,
+            'countChildrenUnder' => $this->countChildrenUnder,
+            'adult_eat' => $this->adult_eat,
+            'children_eat' => $this->children_eat,
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ]);
     }
 
     public function render()

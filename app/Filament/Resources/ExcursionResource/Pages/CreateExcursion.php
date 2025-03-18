@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ExcursionResource\Pages;
 
 use App\Filament\Resources\ExcursionResource;
-use Filament\Actions;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,5 +15,13 @@ class CreateExcursion extends CreateRecord
     {
         $data['user_id'] = Auth::user()->id;
         return $data;
+    }
+
+    protected function getCreatedNotification(): ?Notification
+    {
+        return Notification::make()
+            ->success()
+            ->title('Excursion successfully created')
+            ->body('Please pay attention to the dates that need to be added.');
     }
 }
