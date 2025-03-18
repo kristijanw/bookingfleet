@@ -12,7 +12,7 @@
     class="bg-red-500 rounded-xl h-[485px] py-6 px-5 relative" 
     style="
         box-shadow: 8px 12px 44px 8px #00000040; 
-        background: linear-gradient(180deg, rgba(0, 39, 62, 0) 55.26%, rgba(0, 39, 62, 0.8) 89.07%), url('{{ $image_url }}'); 
+        background: linear-gradient(180deg, rgba(0, 39, 62, 0) 55.26%, rgba(0, 39, 62, 0.8) 89.07%), url('{{ asset('storage/' . $image_url) }}'); 
         background-size: cover; 
         background-position: center;"
 >
