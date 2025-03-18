@@ -12,7 +12,7 @@
     
     <div class="pt-10 flex items-center gap-1.5 flex-wrap">
         @foreach (App\Models\Category::orderBy('order_column', 'asc')->get() as $cat)
-            <x-ui.category wire:key="{{ $cat->id }}" :title="$cat->title" :icon="$cat->image" />
+            <x-ui.category wire:key="{{ $cat->id }}" :id="$cat->id" :title="$cat->title" :icon="$cat->image" />
         @endforeach
     </div>
     

@@ -56,6 +56,8 @@
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @endif
 
+        <script defer src="https://unpkg.com/@alpinejs/ui@3.13.1-beta.0/dist/cdn.min.js"></script>
+
         <style>
             .poetsen-one-regular {
                 font-family: "Poetsen One", sans-serif;
