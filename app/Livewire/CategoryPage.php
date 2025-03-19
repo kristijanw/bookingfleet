@@ -54,7 +54,7 @@ class CategoryPage extends Component
         if (!empty($this->catId)) {
             $category = Category::where('id', $this->catId)->first();
 
-            if (strtolower($category->title) != 'view all' && $this->catId) {
+            if (strtolower($category->title) != 'show all' && $this->catId) {
                 return $query->whereHas('category', function ($q) {
                     $q->where('id', $this->catId);
                 });
