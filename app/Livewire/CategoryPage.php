@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Excursion;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -78,6 +79,7 @@ class CategoryPage extends Component
         return $query->where('price', '<=', $this->rangePrice);
     }
 
+    #[Title('Booking Fleet')]
     public function render()
     {
         $query = Excursion::query();
@@ -91,9 +93,6 @@ class CategoryPage extends Component
         return view('livewire.category-page', [
             'excursions' => $excursions,
             'categories' => $this->categories
-        ])->layout('components.layouts.app', [
-            'title' => 'Booking Fleet',
-            'headerImg' => '/img/bgheader.jpg'
         ]);
     }
 }

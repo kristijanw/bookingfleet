@@ -75,10 +75,15 @@
 
     </head>
     <body class="bg-[#F2F9FB] relative text-[#1b1b18] flex py-6 lg:py-8 items-center lg:justify-center min-h-screen flex-col work-sans">
-        <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
-            <img src="{{ $headerImg }}" class="w-full h-full object-cover" />
-            <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
-        </div>
+        
+        @if (isset($hiddeBackgroundImage) && $hiddeBackgroundImage)
+            
+        @else
+            <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
+                <img src="{{ $headerImg ?? '/img/bgheader.jpg' }}" class="w-full h-full object-cover" />
+                <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
+            </div>
+        @endif
 
         <header class="w-full lg:max-w-[952px] max-w-3xl text-sm mb-6">
             <div class="flex items-center justify-between">
@@ -86,10 +91,7 @@
                     <img src="/img/logo.svg" />
                 </a>
 
-                <a href="#" class="relative">
-                    <img src="/img/cart.svg" />
-                    <span class="bg-[#FBBB0E] rounded-full py-1 px-2.5 absolute -right-3 top-0 text-[#004972] work-sans font-semibold">0</span>
-                </a>
+                <livewire:header-cart />
             </div>
         </header>
 

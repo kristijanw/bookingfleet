@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Excursion;
 
+use App\Facades\Cart;
 use App\Models\Excursion;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
@@ -12,12 +13,14 @@ use Livewire\Component;
 class Single extends Component
 {
     public $id;
+    public $title;
     public $headerImg = '/img/bgheader.jpg';
 
     public $totalPrice = 0.0;
 
     public $availableDates;
     public $times = [];
+    public $selectedDate;
 
     #[Validate('required')]
     public $chooseTime;
@@ -38,6 +41,8 @@ class Single extends Component
     public function mount()
     {
         $excursion = Excursion::with('excursionTime')->where('id', $this->id)->first();
+
+        $this->title = $excursion->title;
 
         $this->totalPrice = number_format($excursion->price, 2);
 
@@ -97,6 +102,7 @@ class Single extends Component
         }
 
         $this->times = [];
+        $this->selectedDate = Carbon::parse($datum);
 
         foreach ($excursionTime->excursionTime as $time) {
             $excursionDate = Carbon::parse($time->date);
@@ -112,16 +118,22 @@ class Single extends Component
     {
         $this->validate();
 
-        // dd([
-        //     'chooseTime' => $this->chooseTime,
-        //     'countAdults' => $this->countAdults,
-        //     'countChildren' => $this->countChildren,
-        //     'countChildrenUnder' => $this->countChildrenUnder,
-        //     'adult_eat' => $this->adult_eat,
-        //     'children_eat' => $this->children_eat,
-        //     'email' => $this->email,
-        //     'phone' => $this->phone,
-        // ]);
+        // id, name, price, quantity, options = array
+        Cart::add($this->id, $this->title, $this->totalPrice, 1, [
+            'date' => $this->selectedDate,
+            'chooseTime' => $this->chooseTime,
+            'countAdults' => $this->countAdults,
+            'countChildren' => $this->countChildren,
+            'countChildrenUnder' => $this->countChildrenUnder,
+            'adult_eat' => $this->adult_eat,
+            'children_eat' => $this->children_eat,
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ]);
+        $this->dispatch('productAddedToCart');
+        $this->dispatch('refreshHeaderCart');
+
+        return $this->redirect('/cart');
     }
 
     public function render()
