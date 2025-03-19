@@ -5,7 +5,7 @@
         </h1>
     </div>
     
-    <div class="pt-10 flex items-center gap-1.5 flex-wrap">
+    <div wire:ignore class="pt-10 flex items-center gap-1.5 flex-wrap">
         @foreach (App\Models\Category::orderBy('order_column', 'asc')->get() as $cat)
             <x-ui.category wire:key="{{ $cat->id }}" :id="$cat->id" :title="$cat->title" :icon="$cat->image" />
         @endforeach
@@ -18,7 +18,7 @@
             <div 
                 x-data="{
                     selected: null
-                }" 
+                }"
                 goo="fade-up" 
                 goo-type="standard" 
                 class="bg-white rounded-xl py-4 px-6"
@@ -31,12 +31,23 @@
                 </p>
 
                 <div 
-                    wire:ignore
+                    wire:ignore.self
                     class="relative overflow-hidden transition-all duration-300 max-h-0"
                     x-ref="container1"
                     x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''"
                 >
-                    U izradi...
+                    <div class="pt-5">
+                        @forelse ($categories as $key => $cat)
+                            <p 
+                                wire:click="setLocation('{{ $cat }}')" 
+                                class="cursor-pointer text-lg {{ $location == $cat ? 'text-[#F2A20E] font-bold' : 'font-normal' }}"
+                            >
+                                {{ $cat }}
+                            </p>
+                        @empty
+                            <p>Empty</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
 
@@ -55,23 +66,40 @@
                     Price <flux:icon.plus class="size-4" />
                 </p>
 
-                <p>{{ $rangePrice }} €</p>
-
                 <div 
-                    wire:ignore
+                    wire:ignore.self
                     class="relative overflow-hidden transition-all duration-300 max-h-0"
                     x-ref="container2"
                     x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''"
                 >
-                    <input 
-                        type="range" 
-                        min="0" 
-                        max="1000" 
-                        step="5" 
-                        wire:model.lazy="rangePrice"
-                        class="w-full h-2 bg-[#FBBB0E] rounded-lg appearance-none cursor-pointer"
-                    >
+                    <div class="flex items-center space-x-2 pt-5">
+                        <button 
+                            wire:click="decreasePrice" 
+                            class="px-3 py-1 bg-gray-300 rounded-lg"
+                        >−</button>
+
+                        <input 
+                            type="range" 
+                            min="0" 
+                            max="1000" 
+                            step="5" 
+                            wire:model.lazy="rangePrice"
+                            class="w-full h-2 bg-[#FBBB0E] rounded-lg appearance-none cursor-pointer"
+                        >
+
+                        <button 
+                            wire:click="increasePrice" 
+                            class="px-3 py-1 bg-gray-300 rounded-lg"
+                        >+</button>
+                    </div>
+                    <p class="text-center">{{ $rangePrice }} €</p>
                 </div>
+            </div>
+
+            <div>
+                <a href="{{ route('categoryPage') }}" class="bg-white block text-center rounded-4xl py-3 px-5 text-[#111827] font-bold text-sm w-full uppercase" >
+                    reset filter
+                </a>
             </div>
         </div>
 

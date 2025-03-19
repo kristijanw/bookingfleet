@@ -38,7 +38,7 @@
                     id="{{ $excursion->id }}" 
                     category="{{ $excursion->category->title }}" 
                     title="{{ $excursion->title }}" 
-                    departure="{{ $excursion->google_maps_url ?? 'test' }}" 
+                    departure="{{ $excursion->departure ?? 'test' }}" 
                     price="{{ $excursion->price }}" 
                     image_url="{{ $excursion->header_img }}" 
                 />
