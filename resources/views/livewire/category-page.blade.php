@@ -97,9 +97,9 @@
             </div>
 
             <div>
-                <a href="{{ route('categoryPage') }}" class="bg-white block text-center rounded-4xl py-3 px-5 text-[#111827] font-bold text-sm w-full uppercase" >
+                <flux:button wire:click="resetFilters" size="sm" class="!rounded-4xl cursor-pointer !py-5 !text-[#111827] !font-bold !text-sm w-full uppercase" >
                     reset filter
-                </a>
+                </flux:button>
             </div>
         </div>
 

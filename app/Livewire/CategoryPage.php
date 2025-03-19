@@ -25,6 +25,11 @@ class CategoryPage extends Component
         $this->categories = array_keys($grouped);
     }
 
+    public function resetFilters()
+    {
+        $this->reset(['location', 'rangePrice']);
+    }
+
     public function increasePrice()
     {
         $this->rangePrice = min(1000, $this->rangePrice + 5);
