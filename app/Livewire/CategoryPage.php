@@ -86,7 +86,7 @@ class CategoryPage extends Component
         $query = $this->applyPriceFilter($query);
         $query = $this->applyLocation($query);
 
-        $excursions = $query->paginate(10);
+        $excursions = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('livewire.category-page', [
             'excursions' => $excursions,
