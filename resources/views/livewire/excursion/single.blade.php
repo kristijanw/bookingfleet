@@ -103,9 +103,9 @@
                             <flux:radio value="no" label="No" wire:click="updateSkipper('no')" checked  />
                         </flux:radio.group>
                     </div>
+                    
+                    <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
                 @endif
-
-                <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
                 <div class="">
                     <flux:heading class="flex items-center gap-2">
