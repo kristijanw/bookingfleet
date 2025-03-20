@@ -6,7 +6,6 @@ use App\Facades\Cart;
 use App\Models\Excursion;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -20,6 +19,7 @@ class Single extends Component
 
     public $totalPrice = 0.0;
 
+    public $seatAvailable;
     public $availableDates;
     public $times = [];
     public $selectedDate;
@@ -48,6 +48,8 @@ class Single extends Component
 
         $this->title = $excursion->title;
 
+        $this->seatAvailable = $excursion->boat_capacity;
+
         $this->totalPrice = number_format($excursion->price, 2);
 
         foreach ($excursion->excursionTime as $time) {
@@ -70,7 +72,15 @@ class Single extends Component
             return;
         }
 
+        $totalPersons = $this->countAdults + $this->countChildren + $this->countChildrenUnder;
+
         if ($operation === 'increment') {
+
+            if ($totalPersons >= $this->seatAvailable) {
+                session()->flash('seatAvailable', 'Nema dovoljno mjesta!');
+                return;
+            }
+
             $this->$type++;
 
             // Dodaj novi unos sa podrazumevanom vrednošću samo ako ne postoji
@@ -107,12 +117,18 @@ class Single extends Component
     #[On('fetchStartTime')]
     public function fetchStartTime($datum, $id)
     {
+        $this->reset(['countAdults', 'countChildren', 'countChildrenUnder', 'adult_eat', 'children_eat']);
+        $this->adult_eat = array_fill(0, $this->countAdults, 'fish');
+        $this->children_eat = array_fill(0, $this->countChildren, 'fish');
+
         $excursionTime = Excursion::with('excursionTime')->where('id', $id)->first();
 
         if (!$excursionTime) {
             $this->times = [];
             return;
         }
+
+        $this->totalPrice = number_format($excursionTime->price, 2);
 
         $this->times = [];
         $this->selectedDate = Carbon::parse($datum);
@@ -123,6 +139,7 @@ class Single extends Component
 
             if ($excursionDate->isSameDay($selectedDate)) {
                 $this->times = array_merge($this->times, $time->start_time);
+                $this->seatAvailable = $time->capacity;
             }
         }
     }

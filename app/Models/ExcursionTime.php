@@ -10,6 +10,7 @@ class ExcursionTime extends Model
     protected $fillable = [
         'date',
         'start_time',
+        'capacity',
         'excursion_id',
     ];
 

@@ -17,8 +17,8 @@
                     </div>
         
                     <!-- Custom Strelice -->
-                    <div class="swiper-button-prev after:!text-xl !text-gray-700 !bg-white !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
-                    <div class="swiper-button-next after:!text-xl !text-gray-700 !bg-white !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
+                    <div class="swiper-button-prev after:!text-xl !text-white !bg-transparent !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
+                    <div class="swiper-button-next after:!text-xl !text-white !bg-transparent !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
                 </div>
 
                 <div class="absolute bottom-5 -right-4 z-10 rounded-xl p-3.5 flex flex-col items-start gap-0 text-[#004972] poetsen-one-regular text-base" style="background: linear-gradient(105.06deg, #FBBB0E 34.41%, #F2A20E 100.37%);">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <img src="/img/boat.svg" />
-                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $excursion->boat_capacity ?? '0' }} seats
+                    <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $seatAvailable ?? '0' }} seats
                 </div>
                 <div class="flex flex-col items-start">
                     <div class="flex items-center gap-2">
@@ -70,7 +70,7 @@
                 <div x-ref="calendar"></div>
             </div>
 
-            <p class="text-[#004972] font-bold text-sm text-right mt-5">{{ $excursion->boat_capacity }} seat avilable</p>
+            <p class="text-[#004972] font-bold text-sm text-right mt-5">{{ $seatAvailable }} seat avilable</p>
 
             <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
@@ -115,6 +115,12 @@
                             </flux:tooltip.content>
                         </flux:tooltip>
                     </flux:heading>
+
+                    @if (session('seatAvailable'))
+                        <div class="text-red-500 text-sm">
+                            {{ session('seatAvailable') }}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="bg-[#F2F9FB] rounded-2xl p-8 mt-3 space-y-8">

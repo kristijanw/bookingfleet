@@ -27,6 +27,10 @@ class ExcursionTimeRelationManager extends RelationManager
                     ->format('c')
                     ->required(),
 
+                Forms\Components\TextInput::make('capacity')
+                    ->required()
+                    ->numeric(),
+
                 Forms\Components\Repeater::make('start_time')
                     ->simple(
                         Forms\Components\TimePicker::make('name')
@@ -48,6 +52,8 @@ class ExcursionTimeRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('start_time')
                     ->badge(),
+
+                Tables\Columns\TextColumn::make('capacity'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('date_filter')
@@ -77,7 +83,7 @@ class ExcursionTimeRelationManager extends RelationManager
                 CreateAction::make('copyquestions')
                     ->label('Add end date')
                     ->color('warning')
-                    ->hidden(ExcursionTime::count() == 0)
+                    ->hidden(fn(RelationManager $livewire) => $livewire->getOwnerRecord()->excursionTime->count() == 0)
                     ->form([
                         Forms\Components\DatePicker::make('end_date')
                             ->native(false)
@@ -86,7 +92,7 @@ class ExcursionTimeRelationManager extends RelationManager
                     ])
                     ->createAnother(false)
                     ->mutateFormDataUsing(function (array $data): array {
-                        $findExcursionTime = ExcursionTime::orderBy('created_at', 'desc')->first();
+                        $findExcursionTime = ExcursionTime::with('excursion')->orderBy('created_at', 'desc')->first();
                         $period = CarbonPeriod::between(
                             Carbon::parse($findExcursionTime->date)->addDay(),
                             Carbon::parse($data['end_date'])
@@ -96,6 +102,7 @@ class ExcursionTimeRelationManager extends RelationManager
                             $excursionTime = new ExcursionTime;
                             $excursionTime->date = $date->format('c');
                             $excursionTime->start_time = $findExcursionTime->start_time;
+                            $excursionTime->capacity = $findExcursionTime->capacity;
                             $excursionTime->excursion_id = $findExcursionTime->excursion->id;
                             $excursionTime->save();
                         }
