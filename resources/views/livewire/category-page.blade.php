@@ -86,7 +86,7 @@
                             max="1000" 
                             step="5" 
                             wire:model.lazy="rangePrice"
-                            class="w-full h-2 bg-[#FBBB0E] rounded-lg appearance-none cursor-pointer"
+                            class="w-full h-2 bg-[#FBBB0E] accent-[#1d7792] rounded-lg appearance-none cursor-pointer"
                         >
 
                         <flux:button 
@@ -96,7 +96,7 @@
                             class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer !h-7">
                         </flux:button>
                     </div>
-                    <p class="text-center">{{ $rangePrice }} €</p>
+                    <p class="text-center font-bold text-[#004972]">{{ $rangePrice }} €</p>
                 </div>
             </div>
 

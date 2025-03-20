@@ -77,6 +77,8 @@ class ExcursionResource extends Resource
                         ->disk('public')
                         ->image()
                         ->multiple()
+                        ->reorderable()
+                        ->appendFiles()
                         ->optimize('webp')
                         ->directory('excursion')
                         ->panelLayout('grid')
