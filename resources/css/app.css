@@ -20,6 +20,15 @@
     gap: 4px;
 }
 
+html {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+}
+
 ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accent\)\] {
     background-color: transparent;
     border-color: #7E7E7E;
