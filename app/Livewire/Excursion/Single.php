@@ -23,6 +23,7 @@ class Single extends Component
     public $availableDates;
     public $times = [];
     public $selectedDate;
+    public $skipper = 'no';
 
     #[Validate('required')]
     public $chooseTime;
@@ -144,6 +145,17 @@ class Single extends Component
         }
     }
 
+    public function updateSkipper($value)
+    {
+        $this->skipper = $value;
+
+        if ($value == 'yes') {
+            $this->totalPrice += $this->excursion->skipper_price;
+        } else {
+            $this->totalPrice -= $this->excursion->skipper_price;
+        }
+    }
+
     public function save()
     {
         $this->validate();
@@ -162,6 +174,8 @@ class Single extends Component
             'location' => $this->excursion->departure,
             'price' => $this->excursion->price,
             'childrenPrice' => $this->excursion->children_price,
+            'skipper' => $this->skipper,
+            'skipperPrice' => $this->excursion->skipper_price,
         ]);
         $this->dispatch('productAddedToCart');
         $this->dispatch('refreshHeaderCart');

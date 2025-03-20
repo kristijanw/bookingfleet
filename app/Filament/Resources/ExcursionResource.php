@@ -66,6 +66,10 @@ class ExcursionResource extends Resource
                         ->prefix('%'),
                     Forms\Components\TextInput::make('tooltip_info'),
 
+                    Forms\Components\TextInput::make('skipper_price')
+                        ->numeric()
+                        ->prefix('€'),
+
                     Forms\Components\Repeater::make('included_in_price')
                         ->simple(
                             Forms\Components\TextInput::make('name')->required(),

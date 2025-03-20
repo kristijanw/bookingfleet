@@ -25,6 +25,7 @@ class Excursion extends Model
         'boat_capacity',
         'included_in_price',
         'skipper',
+        'skipper_price',
         'duration',
         'status',
         'category_id',

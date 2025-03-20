@@ -4,7 +4,7 @@
 
     <div class="pt-20 grid grid-cols-12 gap-4 text-[#004972]">
         <div class="col-span-8 rounded-2xl bg-white p-8" style="box-shadow: 8px 12px 44px 8px #00000040;">
-            
+
             <div class="grid grid-cols-12">
                 <div class="col-span-6">
                     <p class="poetsen-one-regular text-xl">Product</p>
@@ -83,6 +83,10 @@
                                         $discountRate = 1 - ($item->get('options')['childrenPrice'] / 100);
                                     @endphp
                                     <p class="font-medium">{{ $item->get('options')['countChildren'] }} children x {{ $item->get('options')['price'] * $discountRate }} €</p>
+                                @endif
+
+                                @if ($item->get('options')['skipper'] == 'yes')
+                                    <p class="font-medium">Skipper x {{ $item->get('options')['skipperPrice'] }} €</p>
                                 @endif
                             </div>
                         @endforeach

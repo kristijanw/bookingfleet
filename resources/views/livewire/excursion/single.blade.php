@@ -94,6 +94,19 @@
 
                 <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
+                @if ($excursion->skipper == 'yes')
+                    <div class="flex items-center gap-10">
+                        <p class="poetsen-one-regular text-[#004972] text-lg">Skipper</p>
+
+                        <flux:radio.group wire:model="skipper" class="flex items-center gap-3">
+                            <flux:radio value="yes" label="Yes" wire:click="updateSkipper('yes')" />
+                            <flux:radio value="no" label="No" wire:click="updateSkipper('no')"  />
+                        </flux:radio.group>
+                    </div>
+                @endif
+
+                <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
+
                 <div class="">
                     <flux:heading class="flex items-center gap-2">
                         <p class="poetsen-one-regular text-[#004972] text-lg">Reservation details</p>
