@@ -147,11 +147,15 @@ class Single extends Component
 
     public function updateSkipper($value)
     {
-        $this->skipper = $value;
+        if ($this->skipper === $value) {
+            return;
+        }
 
         if ($value == 'yes') {
+            $this->skipper = $value;
             $this->totalPrice += $this->excursion->skipper_price;
         } else {
+            $this->skipper = $value;
             $this->totalPrice -= $this->excursion->skipper_price;
         }
     }
