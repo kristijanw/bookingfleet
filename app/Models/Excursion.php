@@ -15,7 +15,9 @@ class Excursion extends Model
     protected $fillable = [
         'title',
         'description',
+        'tooltip_info',
         'price',
+        'children_price',
         'header_img',
         'gallery',
         'google_maps_url',

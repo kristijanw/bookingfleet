@@ -21,7 +21,7 @@ class CategoryPage extends Component
 
     public function mount()
     {
-        $excursions = Excursion::all();
+        $excursions = Excursion::get();
         $grouped = $excursions->groupBy('departure')->toArray();
         $this->categories = array_keys($grouped);
     }
@@ -82,7 +82,7 @@ class CategoryPage extends Component
     #[Title('Booking Fleet')]
     public function render()
     {
-        $query = Excursion::query();
+        $query = Excursion::query()->with('category');
 
         $query = $this->applyCat($query);
         $query = $this->applyPriceFilter($query);

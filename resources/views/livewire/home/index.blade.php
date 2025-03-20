@@ -18,7 +18,7 @@
     
     <div x-cloak x-show="@json(App\Models\Excursion::count() > 0)">
         <div class="pt-10 grid grid-cols-2 gap-10">
-            @foreach (App\Models\Excursion::orderBy('created_at', 'desc')->limit(2)->get() as $excursion)
+            @foreach (App\Models\Excursion::with('category')->orderBy('created_at', 'desc')->limit(2)->get() as $excursion)
                 <x-ui.card 
                     id="{{ $excursion->id }}" 
                     category="{{ $excursion->category->title }}" 
@@ -33,7 +33,7 @@
     
     <div x-cloak x-show="@json(App\Models\Excursion::count() > 2)">
         <div class="pt-10 grid grid-cols-3 gap-8">
-            @foreach (App\Models\Excursion::orderBy('created_at', 'desc')->skip(2)->limit(3)->get() as $excursion)
+            @foreach (App\Models\Excursion::with('category')->orderBy('created_at', 'desc')->skip(2)->limit(3)->get() as $excursion)
                 <x-ui.card 
                     id="{{ $excursion->id }}" 
                     category="{{ $excursion->category->title }}" 

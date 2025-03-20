@@ -105,8 +105,13 @@
 
 
                             <flux:tooltip.content class="max-w-[20rem] space-y-2">
-                                <p>For US businesses, enter your 9-digit Employer Identification Number (EIN) without hyphens.</p>
-                                <p>For European companies, enter your VAT number including the country prefix (e.g., DE123456789).</p>
+                                @if (!empty($excursion->tooltip_info))
+                                    <p>{{ $excursion->tooltip_info }}</p>
+                                @else
+                                    <p>Person can choose type of meal or no meat at all.</p>
+                                    <p>Children have 30% discount</p>
+                                    <p>Children under 3 years have 100% discount</p>
+                                @endif
                             </flux:tooltip.content>
                         </flux:tooltip>
                     </flux:heading>

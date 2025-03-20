@@ -60,6 +60,12 @@ class ExcursionResource extends Resource
 
                     Forms\Components\TextInput::make('duration')->numeric(),
 
+                    Forms\Components\TextInput::make('children_price')
+                        ->label('Discount for children')
+                        ->numeric()
+                        ->prefix('%'),
+                    Forms\Components\TextInput::make('tooltip_info'),
+
                     Forms\Components\Repeater::make('included_in_price')
                         ->simple(
                             Forms\Components\TextInput::make('name')->required(),

@@ -16,6 +16,8 @@ class Single extends Component
     public $title;
     public $headerImg = '/img/bgheader.jpg';
 
+    public Excursion $excursion;
+
     public $totalPrice = 0.0;
 
     public $availableDates;
@@ -40,7 +42,9 @@ class Single extends Component
 
     public function mount()
     {
-        $excursion = Excursion::with('excursionTime')->where('id', $this->id)->first();
+        $excursion = Excursion::with('excursionTime', 'category')->where('id', $this->id)->first();
+
+        $this->excursion = $excursion;
 
         $this->title = $excursion->title;
 
@@ -72,12 +76,18 @@ class Single extends Component
             // Dodaj novi unos sa podrazumevanom vrednošću samo ako ne postoji
             if ($type === 'countAdults') {
                 $this->adult_eat[] = 'fish';
+                $this->totalPrice += $this->excursion->price;
             } elseif ($type === 'countChildren') {
                 $this->children_eat[] = 'fish';
+
+                $discountRate = 1 - ($this->excursion->children_price / 100);
+                $this->totalPrice += $this->excursion->price * $discountRate;
             }
         } elseif ($operation === 'decrement') {
             if ($type === 'countAdults' && $this->$type > 1) {
                 $this->$type--;
+
+                $this->totalPrice -= $this->excursion->price;
 
                 // Uklanjamo poslednjeg iz niza ako je broj odraslih smanjen
                 array_pop($this->adult_eat);
@@ -85,6 +95,9 @@ class Single extends Component
                 $this->$type--;
 
                 if ($type === 'countChildren') {
+                    $discountRate = 1 - ($this->excursion->children_price / 100);
+                    $this->totalPrice -= $this->excursion->price * $discountRate;
+
                     array_pop($this->children_eat);
                 }
             }
@@ -129,6 +142,9 @@ class Single extends Component
             'children_eat' => $this->children_eat,
             'email' => $this->email,
             'phone' => $this->phone,
+            'location' => $this->excursion->departure,
+            'price' => $this->excursion->price,
+            'childrenPrice' => $this->excursion->children_price,
         ]);
         $this->dispatch('productAddedToCart');
         $this->dispatch('refreshHeaderCart');
@@ -138,13 +154,11 @@ class Single extends Component
 
     public function render()
     {
-        $excursion = Excursion::find($this->id);
-
         return view('livewire.excursion.single', [
-            'excursion' => $excursion,
+            'excursion' => $this->excursion,
         ])->layout('components.layouts.app', [
-            'title' => $excursion->title,
-            'headerImg' => asset('storage') . '/' . $excursion->header_img
+            'title' => $this->excursion->title,
+            'headerImg' => asset('storage') . '/' . $this->excursion->header_img
         ]);
     }
 }
