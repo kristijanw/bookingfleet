@@ -118,7 +118,7 @@ class Single extends Component
     #[On('fetchStartTime')]
     public function fetchStartTime($datum, $id)
     {
-        $this->reset(['countAdults', 'countChildren', 'countChildrenUnder', 'adult_eat', 'children_eat']);
+        $this->reset(['countAdults', 'countChildren', 'countChildrenUnder', 'adult_eat', 'children_eat', 'skipper', 'chooseTime']);
         $this->adult_eat = array_fill(0, $this->countAdults, 'fish');
         $this->children_eat = array_fill(0, $this->countChildren, 'fish');
 

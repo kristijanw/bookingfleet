@@ -100,7 +100,7 @@
 
                         <flux:radio.group class="flex items-center gap-3">
                             <flux:radio value="yes" label="Yes" wire:click="updateSkipper('yes')" />
-                            <flux:radio value="no" label="No" wire:click="updateSkipper('no')"  />
+                            <flux:radio value="no" label="No" wire:click="updateSkipper('no')" checked  />
                         </flux:radio.group>
                     </div>
                 @endif
