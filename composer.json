@@ -12,8 +12,10 @@
         "php": "^8.2",
         "directorytree/authorization": "^1.3",
         "filament/filament": "^3.3.4",
+        "intervention/image": "^2.7",
         "joshembling/image-optimizer": "^1.6",
         "laravel/framework": "*",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.0.6"
     },
