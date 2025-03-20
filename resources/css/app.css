@@ -29,6 +29,10 @@ html {
     /* Standard syntax */
 }
 
+input {
+    user-select: none;
+}
+
 ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accent\)\] {
     background-color: transparent;
     border-color: #7E7E7E;
