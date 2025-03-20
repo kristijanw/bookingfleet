@@ -73,10 +73,12 @@
                     x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''"
                 >
                     <div class="flex items-center space-x-2 pt-5">
-                        <button 
+                        <flux:button 
                             wire:click="decreasePrice" 
-                            class="px-3 py-1 bg-gray-300 rounded-lg"
-                        >−</button>
+                            :loading="false"
+                            icon="minus" 
+                            class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer !h-7">
+                        </flux:button>
 
                         <input 
                             type="range" 
@@ -87,10 +89,12 @@
                             class="w-full h-2 bg-[#FBBB0E] rounded-lg appearance-none cursor-pointer"
                         >
 
-                        <button 
+                        <flux:button 
                             wire:click="increasePrice" 
-                            class="px-3 py-1 bg-gray-300 rounded-lg"
-                        >+</button>
+                            :loading="false"
+                            icon="plus" 
+                            class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer !h-7">
+                        </flux:button>
                     </div>
                     <p class="text-center">{{ $rangePrice }} €</p>
                 </div>
@@ -112,7 +116,7 @@
                     title="{{ $excursion->title }}" 
                     departure="{{ $excursion->departure ?? 'test' }}" 
                     price="{{ $excursion->price }}" 
-                    image_url="{{ $excursion->header_img }}" 
+                    :gallery="$excursion->gallery" 
                 />
             @empty
                 <p>No found</p>

@@ -25,7 +25,7 @@
                     title="{{ $excursion->title }}" 
                     departure="{{ $excursion->departure ?? 'test' }}" 
                     price="{{ $excursion->price }}" 
-                    image_url="{{ $excursion->header_img }}" 
+                    :gallery="$excursion->gallery" 
                 />
             @endforeach
         </div>
@@ -40,7 +40,7 @@
                     title="{{ $excursion->title }}" 
                     departure="{{ $excursion->departure ?? 'test' }}" 
                     price="{{ $excursion->price }}" 
-                    image_url="{{ $excursion->header_img }}" 
+                    :gallery="$excursion->gallery" 
                 />
             @endforeach
         </div>

@@ -220,19 +220,6 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (typeof Swiper !== "undefined" && !window.swiperInitialized) {
-            window.swiperInitialized = true;
-            new Swiper(".swiper", {
-                loop: true,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
-        }
-    });
-
     function calendarComponent(availableDates, excursionId) {
         return {
             availableDates: availableDates,
