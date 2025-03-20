@@ -1,6 +1,6 @@
 <div class="pt-14">
 
-    <h1 class="poetsen-one-regular text-[#004972] text-5xl">Cart</h1>
+    <h1 class="poetsen-one-regular text-white text-5xl">Cart</h1>
 
     <div class="pt-20 grid grid-cols-12 gap-4 text-[#004972]">
         <div class="col-span-8 rounded-2xl bg-white p-8" style="box-shadow: 8px 12px 44px 8px #00000040;">

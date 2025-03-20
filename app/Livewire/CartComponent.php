@@ -51,8 +51,6 @@ class CartComponent extends Component
         return view('livewire.cart-component', [
             'total' => $this->total,
             'content' => $this->content,
-        ])->layoutData([
-            'hiddeBackgroundImage' => true
         ]);
     }
 }
