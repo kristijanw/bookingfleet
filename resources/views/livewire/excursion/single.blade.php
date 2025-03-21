@@ -98,9 +98,9 @@
                     <div class="flex items-center gap-10">
                         <p class="poetsen-one-regular text-[#004972] text-lg">Skipper</p>
 
-                        <flux:radio.group class="flex items-center gap-3">
-                            <flux:radio value="yes" label="Yes" wire:click="updateSkipper('yes')" />
-                            <flux:radio value="no" label="No" wire:click="updateSkipper('no')" checked  />
+                        <flux:radio.group wire:model='skipper' wire:change='updateSkipper' class="flex items-center gap-3">
+                            <flux:radio value="yes" label="Yes" />
+                            <flux:radio value="no" label="No" />
                         </flux:radio.group>
                     </div>
                     
@@ -226,7 +226,7 @@
 
                 <div class="flex items-center gap-3 mb-4">
                     <p class="poetsen-one-regular text-[#004972] text-lg">Total</p>
-                    <p class="text-[#01A6CD] font-medium text-base">{{ $totalPrice }} €</p>
+                    <p class="text-[#01A6CD] font-medium text-base">{{ number_format($totalPrice, 2) }} €</p>
                 </div>
 
                 <button 

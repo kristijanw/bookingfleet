@@ -51,7 +51,7 @@ class Single extends Component
 
         $this->seatAvailable = $excursion->boat_capacity;
 
-        $this->totalPrice = number_format($excursion->price, 2);
+        $this->totalPrice = $excursion->price;
 
         foreach ($excursion->excursionTime as $time) {
             $date = Carbon::parse($time->date)->toDateString();
@@ -129,7 +129,7 @@ class Single extends Component
             return;
         }
 
-        $this->totalPrice = number_format($excursionTime->price, 2);
+        $this->totalPrice = $excursionTime->price;
 
         $this->times = [];
         $this->selectedDate = Carbon::parse($datum);
@@ -145,17 +145,11 @@ class Single extends Component
         }
     }
 
-    public function updateSkipper($value)
+    public function updateSkipper()
     {
-        if ($this->skipper === $value) {
-            return;
-        }
-
-        if ($value == 'yes') {
-            $this->skipper = $value;
+        if ($this->skipper == 'yes') {
             $this->totalPrice += $this->excursion->skipper_price;
         } else {
-            $this->skipper = $value;
             $this->totalPrice -= $this->excursion->skipper_price;
         }
     }
