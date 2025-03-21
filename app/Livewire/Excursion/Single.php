@@ -187,7 +187,8 @@ class Single extends Component
             'excursion' => $this->excursion,
         ])->layout('components.layouts.app', [
             'title' => $this->excursion->title,
-            'headerImg' => asset('storage') . '/' . $this->excursion->header_img
+            'headerImg' => asset('storage') . '/' . $this->excursion->header_img,
+            'opacity' => true,
         ]);
     }
 }

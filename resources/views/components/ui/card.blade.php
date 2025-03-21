@@ -34,7 +34,7 @@
     
             <div class="max-w-[65%] z-10 absolute bottom-6 left-6">
                 <p class="text-[#FBBB0E] font-semibold italic text-base work-sans">Experience</p>
-                <p class="text-white font-semibold text-3xl poetsen-one-regular">{{ $title }}</p>
+                <p class="text-white font-semibold text-3xl poetsen-one-regular leading-[110%]">{{ $title }}</p>
                 <hr class="bg-[#F2F9FB] w-12 my-2 border-none h-[1px]">
                 <p class="work-sans text-sm font-medium text-white">Departure: <span class="text-[#FBBB0E]">{{ $departure }}</span></p>
             </div>

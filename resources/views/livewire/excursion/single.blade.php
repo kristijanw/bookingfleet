@@ -1,36 +1,41 @@
 <div class="pt-20">
     <div class="grid grid-cols-2 gap-4 auto-rows-auto items-start">
-        <div class="relative rounded-2xl p-6 bg-white space-y-8">
-            <h1 class="poetsen-one-regular text-[#004972] text-5xl">{{ $excursion->title }}</h1>
-
-            <div class="relative">
-                <div wire:ignore class="swiper relative rounded-2xl">
-                    <span class="absolute top-4 left-4 bg-[#F2F9FB] py-2 px-4 z-10 text-[#004972] text-sm font-bold rounded-4xl">
-                        {{ $excursion->category->title }}
-                    </span>
-                    <div class="swiper-wrapper">
-                        @foreach ($excursion->gallery as $img)
-                            <div class="swiper-slide">
-                                <img src="{{ asset('storage') . '/' . $img }}" class="w-full h-[400px] object-cover" />
-                            </div>
-                        @endforeach
+        <div>
+            <div class="relative rounded-2xl p-8 bg-[#ffffff90] backdrop-blur-xl space-y-8">
+                <h1 class="poetsen-one-regular text-[#004972] text-5xl">{{ $excursion->title }}</h1>
+    
+                <div class="relative">
+                    <div wire:ignore class="swiper relative rounded-2xl">
+                        <span class="absolute top-4 left-4 bg-[#F2F9FB] py-2 px-4 z-10 text-[#004972] text-sm font-bold rounded-4xl">
+                            {{ $excursion->category->title }}
+                        </span>
+                        <div class="swiper-wrapper">
+                            @foreach ($excursion->gallery as $img)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('storage') . '/' . $img }}" class="w-full h-[400px] object-cover" />
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-        
+    
                     <!-- Custom Strelice -->
-                    <div class="swiper-button-prev after:!text-xl !text-white !bg-transparent !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
-                    <div class="swiper-button-next after:!text-xl !text-white !bg-transparent !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
+                    <div class="swiper-button-prev !-left-5 after:!text-xl !text-black !bg-white !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
+                    <div class="swiper-button-next !-right-5 after:!text-xl !text-black !bg-white !rounded-full !w-10 !h-10 !flex !items-center !justify-center shadow-md"></div>
+    
+                    <div class="absolute bottom-5 -right-5 z-10 rounded-xl p-3.5 flex flex-col items-start gap-0 text-[#004972] poetsen-one-regular text-base" style="background: linear-gradient(105.06deg, #FBBB0E 34.41%, #F2A20E 100.37%);">
+                        <span>From</span>
+                        <span class="text-4xl">{{ $excursion->price }}<sup>€</sup></span>
+                        <span>per person</span>
+                    </div>
                 </div>
-
-                <div class="absolute bottom-5 -right-4 z-10 rounded-xl p-3.5 flex flex-col items-start gap-0 text-[#004972] poetsen-one-regular text-base" style="background: linear-gradient(105.06deg, #FBBB0E 34.41%, #F2A20E 100.37%);">
-                    <span>From</span>
-                    <span class="text-4xl">{{ $excursion->price }}<sup>€</sup></span>
-                    <span>per person</span>
-                </div>
+    
+                <div class="text-[#004972] font-medium">{!! $excursion->description !!}</div>
             </div>
-
-            <p>{!! $excursion->description !!}</p>
+            <flux:button class="uppercase text-[#111827] mt-3 w-full !font-bold text-sm !border-[1px] !border-[#58B6E7] py-3.5 px-6 !rounded-4xl">
+                Back
+            </flux:button>
         </div>
-        <div class="relative rounded-2xl p-6 bg-white">
+        <div class="relative rounded-2xl p-8 bg-[#ffffff90] backdrop-blur-xl">
             <p class="poetsen-one-regular text-[#004972] text-lg">Details</p>
 
             <div class="pt-4 flex flex-col gap-4 text-[#004972] font-medium">
@@ -47,15 +52,15 @@
                     <img src="/img/boat.svg" />
                     <span class="text-[#01A6CD] font-bold">Boat capacity:</span> {{ $seatAvailable ?? '0' }} seats
                 </div>
-                <div class="flex flex-col items-start">
-                    <div class="flex items-center gap-2">
-                        <img src="/img/included.svg" />
+                <div class="flex items-start gap-2">
+                    <img src="/img/included.svg" />
+                    <div class="flex items-start gap-2">
                         <span class="text-[#01A6CD] font-bold">Included:</span>
-                    </div>
-                    <div class="pl-8">
-                        @foreach ($excursion->included_in_price as $incl)
-                            <p>{{ $incl }}</p>
-                        @endforeach
+                        <div class="flex flex-col gap-1">
+                            @foreach ($excursion->included_in_price as $incl)
+                                <p>{{ $incl }}</p>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 
@@ -90,7 +95,7 @@
                 @endif
 
                 <input wire:model='chooseTime' type="hidden" />
-                @error('chooseTime') <span class="text-red-500 text-sm mt-5">{{ $message }}</span> @enderror 
+                @error('chooseTime') <span class="text-red-500 text-[12px] mt-5">{{ $message }}</span> @enderror 
 
                 <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
@@ -112,12 +117,12 @@
                         <p class="poetsen-one-regular text-[#004972] text-lg">Reservation details</p>
 
                         <flux:tooltip toggleable position="bottom">
-                            <flux:button size="sm" class="!bg-white !border-none !text-red-500 !shadow-none !p-0">
+                            <flux:button size="sm" class="!bg-transparent !border-none !text-red-500 !shadow-none !p-0">
                                 <img src="/img/information-circle.svg" />
                             </flux:button>
 
 
-                            <flux:tooltip.content class="max-w-[20rem] space-y-2">
+                            <flux:tooltip.content class="max-w-[20rem] space-y-2 !bg-[#004972] !p-3">
                                 @if (!empty($excursion->tooltip_info))
                                     <p>{{ $excursion->tooltip_info }}</p>
                                 @else
@@ -130,13 +135,13 @@
                     </flux:heading>
 
                     @if (session('seatAvailable'))
-                        <div class="text-red-500 text-sm">
+                        <div class="text-red-500 text-[12px]">
                             {{ session('seatAvailable') }}
                         </div>
                     @endif
                 </div>
 
-                <div class="bg-[#F2F9FB] rounded-2xl p-8 mt-3 space-y-8">
+                <div class="bg-[#F2F9FB] rounded-2xl p-6 mt-3 space-y-8">
                     <div>
                         <div class="flex items-center justify-between gap-11">
                             <div>
@@ -144,7 +149,7 @@
                             </div>
                             <div class="flex items-center gap-1">
                                 <flux:button wire:click="updateCount('countAdults', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countAdults }}</flux:button>
+                                <flux:button class="!text-[#004972] !border-[1px] !border-[#D9D9D9] !font-bold">{{ $countAdults }}</flux:button>
                                 <flux:button wire:click="updateCount('countAdults', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
@@ -168,7 +173,7 @@
                             </div>
                             <div class="flex items-center gap-1">
                                 <flux:button wire:click="updateCount('countChildren', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildren }}</flux:button>
+                                <flux:button class="!text-[#004972] !border-[1px] !border-[#D9D9D9] !font-bold">{{ $countChildren }}</flux:button>
                                 <flux:button wire:click="updateCount('countChildren', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
@@ -192,7 +197,7 @@
                             </div>
                             <div class="flex items-center gap-1">
                                 <flux:button wire:click="updateCount('countChildrenUnder', 'decrement')" icon="minus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
-                                <flux:button class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9]">{{ $countChildrenUnder }}</flux:button>
+                                <flux:button class="!text-[#004972] !border-[1px] !border-[#D9D9D9] !font-bold">{{ $countChildrenUnder }}</flux:button>
                                 <flux:button wire:click="updateCount('countChildrenUnder', 'increment')" icon="plus" class="!text-[#01A6CD] !border-[1px] !border-[#D9D9D9] cursor-pointer"></flux:button>
                             </div>
                         </div>
@@ -203,14 +208,14 @@
 
                 <p class="poetsen-one-regular text-[#004972] text-lg">Info details</p>
 
-                <div class="bg-[#F2F9FB] rounded-2xl p-8 mt-3 space-y-4">
+                <div class="bg-[#F2F9FB] rounded-2xl p-6 mt-3 space-y-2">
                     <div>
                         <div class="flex items-center justify-between">
                             <p class="text-[#01A6CD] font-bold text-sm">Your email</p>
                             <input type="email" wire:model="email" class="!w-[60%] !border-[1px] !border-[#D9D9D9] bg-white text-sm rounded-lg px-2 py-1" />
                         </div>
                         <div>
-                            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror 
+                            @error('email') <span class="text-red-500 text-[12px]">{{ $message }}</span> @enderror 
                         </div>
                     </div>
                     <div>
@@ -219,7 +224,7 @@
                             <input type="tel" wire:model="phone" class="!w-[60%] !border-[1px] !border-[#D9D9D9] bg-white text-sm rounded-lg px-2 py-1" />
                         </div>
                         <div>
-                            @error('phone') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror 
+                            @error('phone') <span class="text-red-500 text-[12px]">{{ $message }}</span> @enderror 
                         </div>
                     </div>
                 </div>

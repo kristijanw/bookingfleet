@@ -80,7 +80,7 @@
             
         @else
             <div class="absolute top-0 left-0 w-full h-[70vh] -z-10">
-                <img src="{{ $headerImg ?? '/img/bgheader.jpg' }}" class="w-full h-full object-cover" />
+                <img src="{{ $headerImg ?? '/img/bgheader.jpg' }}" class="w-full h-full object-cover {{ isset($opacity) ? 'opacity-[65%]' : '' }}" />
                 <div class="absolute top-0 left-0 right-0 -bottom-[1px] bg-gradient-to-t from-[#F2F9FB] via-transparent to-transparent"></div>
             </div>
         @endif
@@ -103,7 +103,9 @@
 
         <footer class="w-full lg:max-w-[952px] max-w-3xl pt-20">
             <div class="flex items-center justify-center gap-10">
-                <img src="/img/footerlogo.svg" />
+                <a href="{{ route('home') }}">
+                    <img src="/img/footerlogo.svg" />
+                </a>
                 <p class="text-[#004972] work-sans font-medium text-sm w-[328px]">
                     Discover Croatia's stunning coastline with our wide range of water activities. <span class="text-[#FBBB0E]">Choose your experience!</span>
                 </p>

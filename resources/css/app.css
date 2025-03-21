@@ -46,7 +46,7 @@ ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accen
 .flatpickr-calendar {
     background: #F2F9FB !important;
     border-radius: 16px !important;
-    padding: 24px 16px 16px 16px !important;
+    padding: 16px !important;
     width: 100% !important;
     box-shadow: none !important;
 }
@@ -69,7 +69,12 @@ ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accen
 
 .flatpickr-calendar .flatpickr-months .flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month {
-    top: 24px !important;
+    top: 16px !important;
+}
+
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    font-weight: 700 !important;
 }
 
 .flatpickr-calendar .flatpickr-weekdaycontainer>span {
@@ -126,4 +131,9 @@ ui-radio[data-checked] .\[ui-radio\[data-checked\]_\&\]\:bg-\[var\(--color-accen
 .flatpickr-day.available-date:hover {
     background-color: #39cc3157;
     color: #F2F9FB;
+}
+
+
+.flatpickr-monthDropdown-months {
+    width: 6rem !important;
 }
