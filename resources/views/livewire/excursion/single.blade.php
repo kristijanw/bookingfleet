@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         @for ($i = 0; $i < $countChildren; $i++)
-                            <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] font-medium">
+                            <div class="flex items-center justify-between gap-10 mt-3 text-[#004972] text-sm font-medium">
                                 <p>Person {{ $i + 1 }}</p>
                                 <flux:radio.group wire:model="children_eat.{{ $i }}" class="flex items-center gap-3">
                                     <flux:radio value="meat" label="Meat" />
