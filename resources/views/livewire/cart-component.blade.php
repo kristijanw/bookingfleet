@@ -63,6 +63,30 @@
                         </div>
                     @endforeach
                 </div>
+
+                <div class="pt-10">
+                    @if(empty($usedCoupon))
+                        <form wire:submit="applyCoupon" class="flex items-center gap-3">
+                            <p class="poetsen-one-regular text-xl">Coupon</p>
+                            <flux:input wire:model="coupon" />
+                            <flux:button type="submit" variant="primary" class="disabled:cursor-not-allowed disabled:opacity-50 uppercase border-none !rounded-4xl" style="background: linear-gradient(233.75deg, #01A6CD 1.53%, #004972 137.53%);">
+                                Apply coupon
+                            </flux:button>
+                        </form>
+                        @error('coupon') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @else
+                        <div class="flex items-center gap-3">
+                            <p class="poetsen-one-regular text-xl">Coupon</p>
+                            <flux:input disabled value="{{ $usedCoupon['code'] }}" />
+                            <flux:button wire:click='removeCoupon' variant="danger" class="uppercase border-none !rounded-4xl">
+                                Remove coupon
+                            </flux:button>
+                        </div>
+                        <div class="text-green-500 text-sm mt-2">
+                            Coupon has been successfully applied.
+                        </div>
+                    @endif
+                </div>
             @else
                 <p class="text-3xl text-center mb-2">cart is empty!</p>
             @endif

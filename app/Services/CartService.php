@@ -9,21 +9,27 @@ class CartService
 {
     const MINIMUM_QUANTITY = 1;
     const DEFAULT_INSTANCE = 'shopping-cart';
+    const COUPON_SESSION_KEY = 'cart_coupon';
 
     public function __construct(
         private SessionManager $session,
     ) {}
 
-    /**
-     * Adds a new item to the cart.
-     *
-     * @param string $id
-     * @param string $name
-     * @param string $price
-     * @param string $quantity
-     * @param array $options
-     * @return void
-     */
+    public function applyCoupon(array $coupon): void
+    {
+        $this->session->put(self::COUPON_SESSION_KEY, $coupon);
+    }
+
+    public function removeCoupon(): void
+    {
+        $this->session->forget(self::COUPON_SESSION_KEY);
+    }
+
+    public function getCoupon(): ?array
+    {
+        return $this->session->get(self::COUPON_SESSION_KEY);
+    }
+
     public function add($id, $name, $price, $quantity, $options = []): void
     {
         $cartItem = $this->createCartItem($name, $price, $quantity, $options);
@@ -39,13 +45,6 @@ class CartService
         $this->session->put(self::DEFAULT_INSTANCE, $content);
     }
 
-    /**
-     * Updates the quantity of a cart item.
-     *
-     * @param string $id
-     * @param string $action
-     * @return void
-     */
     public function update(string $id, string $action): void
     {
         $content = $this->getContent();
@@ -74,12 +73,6 @@ class CartService
         }
     }
 
-    /**
-     * Removes an item from the cart.
-     *
-     * @param string $id
-     * @return void
-     */
     public function remove(string $id): void
     {
         $content = $this->getContent();
@@ -89,61 +82,47 @@ class CartService
         }
     }
 
-    /**
-     * Clears the cart.
-     *
-     * @return void
-     */
     public function clear(): void
     {
         $this->session->forget(self::DEFAULT_INSTANCE);
     }
 
-    /**
-     * Returns the content of the cart.
-     *
-     * @return Illuminate\Support\Collection
-     */
     public function content(): Collection
     {
         return is_null($this->session->get(self::DEFAULT_INSTANCE)) ? collect([]) : $this->session->get(self::DEFAULT_INSTANCE);
     }
 
-    /**
-     * Returns total price of the items in the cart.
-     *
-     * @return string
-     */
     public function total(): string
     {
         $content = $this->getContent();
 
-        $total = $content->reduce(function ($total, $item) {
+        $subtotal = $content->reduce(function ($total, $item) {
             return $total += $item->get('price') * $item->get('quantity');
-        });
+        }, 0);
 
-        return number_format($total ?? 0, 2);
+        $coupon = $this->getCoupon();
+
+        if ($coupon) {
+            if ($coupon['type'] === 'percentage') {
+                $discount = ($coupon['value'] / 100) * $subtotal;
+                $subtotal -= $discount;
+            } elseif ($coupon['type'] === 'fixed') {
+                $subtotal -= $coupon['value'];
+            }
+
+            if ($subtotal < 0) {
+                $subtotal = 0;
+            }
+        }
+
+        return number_format($subtotal, 2);
     }
 
-    /**
-     * Returns the content of the cart.
-     *
-     * @return Illuminate\Support\Collection
-     */
     protected function getContent(): Collection
     {
         return $this->session->has(self::DEFAULT_INSTANCE) ? $this->session->get(self::DEFAULT_INSTANCE) : collect([]);
     }
 
-    /**
-     * Creates a new cart item from given inputs.
-     *
-     * @param string $name
-     * @param string $price
-     * @param string $quantity
-     * @param array $options
-     * @return Illuminate\Support\Collection
-     */
     protected function createCartItem(string $name, string $price, string $quantity, array $options): Collection
     {
         $price = floatval($price);

@@ -155,6 +155,7 @@
                                     <flux:radio value="meat" label="Meat" />
                                     <flux:radio value="fish" label="Fish" checked  />
                                     <flux:radio value="vege" label="Vege"  />
+                                    <flux:radio value="none" label="None"  />
                                 </flux:radio.group>
                             </div>
                         @endfor
@@ -178,6 +179,7 @@
                                     <flux:radio value="meat" label="Meat" />
                                     <flux:radio value="fish" label="Fish" checked  />
                                     <flux:radio value="vege" label="Vege"  />
+                                    <flux:radio value="none" label="None"  />
                                 </flux:radio.group>
                             </div>
                         @endfor
