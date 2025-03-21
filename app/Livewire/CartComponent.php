@@ -35,19 +35,16 @@ class CartComponent extends Component
             return;
         }
 
-        // Provjera datuma
         if ($coupon->valid_to && now()->gt($coupon->valid_to)) {
             $this->addError('coupon', 'Kupon je istekao.');
             return;
         }
 
-        // Provjera broja korištenja (samo ako max_uses > 0)
         if ($coupon->max_uses > 0 && $coupon->times_used >= $coupon->max_uses) {
             $this->addError('coupon', 'Kupon je dosegao maksimalni broj korištenja.');
             return;
         }
 
-        // Ako sve prolazi, primijeni kupon
         Cart::applyCoupon([
             'code' => $coupon->code,
             'type' => $coupon->type,
