@@ -120,9 +120,15 @@
                     <p class="text-[#01A6CD] font-bold">Total:</p>
                     <p class="text-[#004972] font-bold">{{ $total }} €</p>
                 </div>
-                <a href="{{ route('thank-you') }}" class="w-full mt-4 rounded-4xl py-3.5 px-6 text-white uppercase font-bold" style="background: linear-gradient(233.75deg, #01A6CD 1.53%, #004972 137.53%);">
-                    Proceed to checkout
-                </a>
+
+                <form method="POST" action="{{ route('order-processed') }}">
+                    @csrf
+                    <div class="mt-4">
+                        <flux:button type="submit" variant="primary" class="w-full disabled:cursor-not-allowed disabled:opacity-50 uppercase border-none !rounded-4xl" style="background: linear-gradient(233.75deg, #01A6CD 1.53%, #004972 137.53%);">
+                            Proceed to checkout
+                        </flux:button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
