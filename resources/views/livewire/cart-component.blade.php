@@ -4,7 +4,6 @@
 
     <div class="pt-20 grid grid-cols-12 gap-4 text-[#004972]">
         <div class="col-span-8 rounded-2xl bg-white p-8" style="box-shadow: 8px 12px 44px 8px #00000040;">
-
             <div class="grid grid-cols-12">
                 <div class="col-span-6">
                     <p class="poetsen-one-regular text-xl">Product</p>
@@ -132,4 +131,12 @@
             </div>
         </div>
     </div>
+
+    @if (session('cart-error'))
+        <div class="w-full bg-white rounded-2xl p-8 mt-10">
+            <div class="text-red-500 text-lg font-medium">
+                {{ session('cart-error') }}
+            </div>
+        </div>
+    @endif
 </div>

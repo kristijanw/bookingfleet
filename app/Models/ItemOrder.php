@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ItemOrder extends Model
 {
     protected $fillable = [
-        'id',
         'title',
         'trip_day',
         'start_time',
         'location',
         'order_id',
+    ];
+
+    protected $casts = [
+        'trip_day' =>  'date',
     ];
 
     public function order(): BelongsTo

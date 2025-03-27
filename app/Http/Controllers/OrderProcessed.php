@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facades\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\Log;
@@ -23,25 +24,28 @@ class OrderProcessed extends Controller
 				$content = Cart::content();
 				$usedCoupon = Cart::getCoupon();
 
-				foreach ($content as $item) {
-					dump($item->get('options'));
-				}
+				$test = $user;
 
-				dump($total);
-				dd($usedCoupon);
+				foreach ($content as $item) {
+					$order = Order::create([
+						'coupon' => !empty($usedCoupon) ? $usedCoupon['code'] : null,
+						'total_price' => $item->get('price'),
+					]);
+
+					$order->itemOrders()->create([
+						'title' => $item->get('name'),
+						'trip_day' => $item->get('options')['date'],
+						'start_time' => $item->get('options')['chooseTime'],
+						'location' => $item->get('options')['location'],
+					]);
+				}
 			}, 3);
 
-			return response()->json([
-				'status' => 'ok',
-				'message' => 'Uspješno kreirana rezervacija!'
-			], 200);
+			return redirect()->route('thank-you');
 		} catch (\Throwable $th) {
 			Log::error($th);
 
-			return response()->json([
-				'status' => 'error',
-				'message' => 'Greška, javite se korisničkoj podršci.'
-			], 200);
+			return redirect()->route('cart')->with('cart-error', 'Test greška!!');
 		}
 	}
 }
