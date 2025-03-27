@@ -8,3 +8,5 @@ Route::get('/excursion/{id}', App\Livewire\Excursion\Single::class)->name('excur
 Route::get('/category-page', App\Livewire\CategoryPage::class)->name('categoryPage');
 
 Route::get('/cart', App\Livewire\CartComponent::class)->name('cart');
+
+Route::get('/thank-you', App\Livewire\ThankYou::class)->name('thank-you');

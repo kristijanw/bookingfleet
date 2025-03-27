@@ -120,9 +120,9 @@
                     <p class="text-[#01A6CD] font-bold">Total:</p>
                     <p class="text-[#004972] font-bold">{{ $total }} €</p>
                 </div>
-                <button class="w-full mt-4 rounded-4xl py-3.5 px-6 text-white uppercase font-bold" style="background: linear-gradient(233.75deg, #01A6CD 1.53%, #004972 137.53%);">
+                <a href="{{ route('thank-you') }}" class="w-full mt-4 rounded-4xl py-3.5 px-6 text-white uppercase font-bold" style="background: linear-gradient(233.75deg, #01A6CD 1.53%, #004972 137.53%);">
                     Proceed to checkout
-                </button>
+                </a>
             </div>
         </div>
     </div>
