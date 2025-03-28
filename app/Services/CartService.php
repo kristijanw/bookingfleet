@@ -85,6 +85,7 @@ class CartService
     public function clear(): void
     {
         $this->session->forget(self::DEFAULT_INSTANCE);
+        $this->session->forget(self::COUPON_SESSION_KEY);
     }
 
     public function content(): Collection
