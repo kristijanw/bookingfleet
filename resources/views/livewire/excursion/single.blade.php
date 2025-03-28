@@ -42,7 +42,7 @@
                 <div class="flex items-center gap-2">
                     <img src="/img/globe.svg" />
                     <span class="text-[#01A6CD] font-bold">Departure:</span>
-                    <a class="underline" href="{{ $excursion->google_maps_url }}" target="_blank">{{ $excursion->departure ?? 'None' }}</a>
+                    {{ $excursion->departure ?? 'None' }}
                 </div>
                 <div class="flex items-center gap-2">
                     <img src="/img/clock.svg" />
