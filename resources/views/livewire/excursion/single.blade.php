@@ -31,7 +31,7 @@
     
                 <div class="text-[#004972] font-medium">{!! $excursion->description !!}</div>
             </div>
-            <flux:button class="uppercase text-[#111827] mt-3 w-full !font-bold text-sm !border-[1px] !border-[#58B6E7] py-3.5 px-6 !rounded-4xl">
+            <flux:button href="{{ URL::previous() }}" class="uppercase text-[#111827] mt-3 w-full !font-bold text-sm !border-[1px] !border-[#58B6E7] py-3.5 px-6 !rounded-4xl">
                 Back
             </flux:button>
         </div>
