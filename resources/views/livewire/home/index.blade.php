@@ -1,5 +1,30 @@
 <div>
     <div class="pt-10">
+
+        @if(session('qrcode-success'))
+            <div 
+                x-data="{ show: true }" 
+                x-init="setTimeout(() => show = false, 3000)" 
+                x-show="show" 
+                x-transition 
+                class="bg-green-500 text-white p-4 rounded-lg mb-4"
+            >
+                {{ session('qrcode-success') }}
+            </div>
+        @endif
+
+        @if(session('qrcode-error'))
+            <div 
+                x-data="{ show: true }" 
+                x-init="setTimeout(() => show = false, 3000)" 
+                x-show="show" 
+                x-transition 
+                class="bg-red-500 text-white p-4 rounded-lg mb-4"
+            >
+                {{ session('qrcode-error') }}
+            </div>
+        @endif
+
         <h1 class="text-6xl font-normal poetsen-one-regular text-white" style="text-shadow: 8px 12px 44px rgba(0, 0, 0, 0.25), 3px 3px 0px #FBBB0E;">
             Your Croatian Adventure
         </h1>
