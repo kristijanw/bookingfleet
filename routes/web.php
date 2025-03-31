@@ -13,3 +13,7 @@ Route::get('/cart', App\Livewire\CartComponent::class)->name('cart');
 Route::post('/order-processed', OrderProcessed::class)->name('order-processed');
 
 Route::get('/thank-you', App\Livewire\ThankYou::class)->name('thank-you');
+
+Route::get('/update-status-reservation/{order_id}', App\Http\Controllers\UpdateStatusReservation::class)
+    ->name('update-status-reservation')
+    ->middleware('auth');

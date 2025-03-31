@@ -42,10 +42,10 @@ class OrderProcessed extends Controller
                         'skipper_price' => $item->get('options')['skipperPrice'],
                     ]);
 
-                    $order->notify(new OrderProcessing);
+                    $order->notify(new OrderProcessing($order->id));
                 }
 
-                Cart::clear();
+                // Cart::clear();
             }, 3);
 
             return redirect()->route('thank-you');
