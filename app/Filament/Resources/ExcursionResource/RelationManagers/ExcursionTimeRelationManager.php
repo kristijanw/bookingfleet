@@ -80,42 +80,43 @@ class ExcursionTimeRelationManager extends RelationManager
 
             ])
             ->headerActions([
-                // CreateAction::make('copyquestions')
-                //     ->label('Add end date')
-                //     ->color('warning')
-                //     ->hidden(fn(RelationManager $livewire) => $livewire->getOwnerRecord()->excursionDate->count() == 0)
-                //     ->form([
-                //         Forms\Components\DatePicker::make('end_date')
-                //             ->native(false)
-                //             ->displayFormat('d/m/Y')
-                //             ->required(),
-                //     ])
-                //     ->createAnother(false),
-                // ->mutateFormDataUsing(function (array $data): array {
-                //     $findExcursionTime = ExcursionDate::with('excursion')->orderBy('created_at', 'desc')->first();
+                CreateAction::make('copyquestions')
+                    ->label('Add end date')
+                    ->color('warning')
+                    ->hidden(fn(RelationManager $livewire) => $livewire->getOwnerRecord()->excursionDate->count() == 0)
+                    ->form([
+                        Forms\Components\DatePicker::make('end_date')
+                            ->native(false)
+                            ->displayFormat('d/m/Y')
+                            ->required(),
+                    ])
+                    ->createAnother(false)
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $findExcursionTime = ExcursionDate::with('excursion', 'excursionDateTimes')->orderBy('created_at', 'desc')->first();
 
-                //     $period = CarbonPeriod::between(
-                //         Carbon::parse($findExcursionTime->date)->addDay(),
-                //         Carbon::parse($data['end_date'])
-                //     );
+                        $period = CarbonPeriod::between(
+                            Carbon::parse($findExcursionTime->date)->addDay(),
+                            Carbon::parse($data['end_date'])
+                        );
 
-                //     foreach ($period as $date) {
-                //         $excursionTime = new ExcursionDate;
-                //         $excursionTime->date = $date->format('c');
-                //         $excursionTime->excursion_id = $findExcursionTime->excursion->id;
-                //         $excursionTime->save();
+                        foreach ($period as $date) {
+                            $excursionTime = new ExcursionDate;
+                            $excursionTime->date = $date;
+                            $excursionTime->excursion_id = $findExcursionTime->excursion->id;
+                            $excursionTime->save();
 
-                //         $excursionTime->excursionDateTimes()->create([
-                //             'time' => $findExcursionTime->start_time,
-                //             'available_seats' => $findExcursionTime->capacity,
-                //         ]);
-                //     }
+                            foreach ($findExcursionTime->excursionDateTimes as $excursionDateTime) {
+                                $replicatedDateTime = $excursionDateTime->replicate();
+                                $replicatedDateTime->excursion_date_id = $excursionTime->id;
+                                $replicatedDateTime->save();
+                            }
+                        }
 
-                //     return $data;
-                // })
-                // ->after(function () {
-                //     ExcursionDate::where('date', null)->delete();
-                // }),
+                        return $data;
+                    })
+                    ->after(function () {
+                        ExcursionDate::where('date', null)->delete();
+                    }),
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
