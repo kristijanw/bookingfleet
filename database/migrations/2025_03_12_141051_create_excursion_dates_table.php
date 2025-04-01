@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('excursion_times', function (Blueprint $table) {
+        Schema::create('excursion_dates', function (Blueprint $table) {
             $table->id();
 
-            $table->string('date')->nullable();
-            $table->string('start_time')->nullable();
+            $table->date('date');
 
             $table->foreignUuid('excursion_id')
                 ->constrained()
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('excursion_times');
+        Schema::dropIfExists('excursion_dates');
     }
 };

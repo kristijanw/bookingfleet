@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ExcursionResource\RelationManagers;
 
-use App\Models\ExcursionTime;
+use App\Models\ExcursionDate;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Filament\Forms;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ExcursionTimeRelationManager extends RelationManager
 {
-    protected static string $relationship = 'excursionTime';
+    protected static string $relationship = 'excursionDate';
 
     public function form(Form $form): Form
     {
@@ -25,19 +25,24 @@ class ExcursionTimeRelationManager extends RelationManager
                     ->native(false)
                     ->displayFormat('d/m/Y')
                     ->format('c')
-                    ->required(),
-
-                Forms\Components\TextInput::make('capacity')
                     ->required()
-                    ->numeric(),
+                    ->columnSpanFull(),
 
-                Forms\Components\Repeater::make('start_time')
-                    ->simple(
-                        Forms\Components\TimePicker::make('name')
-                            ->native(true)
-                            ->seconds(false)
-                            ->required(),
-                    )
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Repeater::make('excursionDateTimes')
+                            ->relationship('excursionDateTimes')
+                            ->schema([
+                                Forms\Components\TimePicker::make('time')
+                                    ->label('Start Time')
+                                    ->required(),
+
+                                Forms\Components\TextInput::make('available_seats')
+                                    ->label('Available Seats')
+                                    ->numeric()
+                                    ->required(),
+                            ])->columns(2),
+                    ])
                     ->columnSpanFull(),
             ]);
     }
@@ -49,11 +54,6 @@ class ExcursionTimeRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('date')
                     ->formatStateUsing(fn(string $state) => Carbon::parse($state)->format('d.m.Y')),
-
-                Tables\Columns\TextColumn::make('start_time')
-                    ->badge(),
-
-                Tables\Columns\TextColumn::make('capacity'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('date_filter')
@@ -80,38 +80,42 @@ class ExcursionTimeRelationManager extends RelationManager
 
             ])
             ->headerActions([
-                CreateAction::make('copyquestions')
-                    ->label('Add end date')
-                    ->color('warning')
-                    ->hidden(fn(RelationManager $livewire) => $livewire->getOwnerRecord()->excursionTime->count() == 0)
-                    ->form([
-                        Forms\Components\DatePicker::make('end_date')
-                            ->native(false)
-                            ->displayFormat('d/m/Y')
-                            ->required(),
-                    ])
-                    ->createAnother(false)
-                    ->mutateFormDataUsing(function (array $data): array {
-                        $findExcursionTime = ExcursionTime::with('excursion')->orderBy('created_at', 'desc')->first();
-                        $period = CarbonPeriod::between(
-                            Carbon::parse($findExcursionTime->date)->addDay(),
-                            Carbon::parse($data['end_date'])
-                        );
+                // CreateAction::make('copyquestions')
+                //     ->label('Add end date')
+                //     ->color('warning')
+                //     ->hidden(fn(RelationManager $livewire) => $livewire->getOwnerRecord()->excursionDate->count() == 0)
+                //     ->form([
+                //         Forms\Components\DatePicker::make('end_date')
+                //             ->native(false)
+                //             ->displayFormat('d/m/Y')
+                //             ->required(),
+                //     ])
+                //     ->createAnother(false),
+                // ->mutateFormDataUsing(function (array $data): array {
+                //     $findExcursionTime = ExcursionDate::with('excursion')->orderBy('created_at', 'desc')->first();
 
-                        foreach ($period as $date) {
-                            $excursionTime = new ExcursionTime;
-                            $excursionTime->date = $date->format('c');
-                            $excursionTime->start_time = $findExcursionTime->start_time;
-                            $excursionTime->capacity = $findExcursionTime->capacity;
-                            $excursionTime->excursion_id = $findExcursionTime->excursion->id;
-                            $excursionTime->save();
-                        }
+                //     $period = CarbonPeriod::between(
+                //         Carbon::parse($findExcursionTime->date)->addDay(),
+                //         Carbon::parse($data['end_date'])
+                //     );
 
-                        return $data;
-                    })
-                    ->after(function () {
-                        ExcursionTime::where('date', null)->delete();
-                    }),
+                //     foreach ($period as $date) {
+                //         $excursionTime = new ExcursionDate;
+                //         $excursionTime->date = $date->format('c');
+                //         $excursionTime->excursion_id = $findExcursionTime->excursion->id;
+                //         $excursionTime->save();
+
+                //         $excursionTime->excursionDateTimes()->create([
+                //             'time' => $findExcursionTime->start_time,
+                //             'available_seats' => $findExcursionTime->capacity,
+                //         ]);
+                //     }
+
+                //     return $data;
+                // })
+                // ->after(function () {
+                //     ExcursionDate::where('date', null)->delete();
+                // }),
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([

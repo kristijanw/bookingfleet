@@ -15,6 +15,6 @@ class Category extends Model
     ];
 
     protected $attributes = [
-        'order_column' => 0,
+        'order_column' => 1,
     ];
 }

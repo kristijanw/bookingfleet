@@ -4,28 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ExcursionTime extends Model
+class ExcursionDate extends Model
 {
     protected $fillable = [
         'date',
-        'start_time',
-        'capacity',
         'excursion_id',
     ];
 
     protected $casts = [
-        'date' => 'string',
-        'start_time' => 'array'
+        'date' => 'date',
     ];
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Excursion::class);
-    }
 
     public function excursion(): BelongsTo
     {
         return $this->belongsTo(Excursion::class);
+    }
+
+    public function excursionDateTimes(): HasMany
+    {
+        return $this->hasMany(ExcursionDateTime::class);
     }
 }

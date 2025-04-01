@@ -49,8 +49,8 @@ class Excursion extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function excursionTime(): HasMany
+    public function excursionDate(): HasMany
     {
-        return $this->hasMany(ExcursionTime::class);
+        return $this->hasMany(ExcursionDate::class);
     }
 }
