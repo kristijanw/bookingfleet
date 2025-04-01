@@ -65,6 +65,10 @@ class Single extends Component
 
     public function setStartTime($time)
     {
+        $this->reset(['countAdults', 'countChildren', 'countChildrenUnder', 'adult_eat', 'children_eat', 'skipper', 'chooseTime']);
+        $this->adult_eat = array_fill(0, $this->countAdults, 'fish');
+        $this->children_eat = array_fill(0, $this->countChildren, 'fish');
+
         $excursionDate = ExcursionDate::with('excursionDateTimes')->where('date', $this->selectedDate)->first();
         $excursionDateTime = $excursionDate->excursionDateTimes()->where('time', $time)->first();
 
