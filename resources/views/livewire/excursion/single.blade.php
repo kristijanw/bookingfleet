@@ -75,22 +75,25 @@
                 <div x-ref="calendar"></div>
             </div>
 
-            <p class="text-[#004972] font-bold text-sm text-right mt-5">{{ $seatAvailable }} seat avilable</p>
-
             <hr class="border-none h-[1px] bg-[#E3E3E3] my-4">
 
             <form wire:submit="save">
                 <p class="poetsen-one-regular text-[#004972] text-lg">Choose time</p>
 
                 @if (!empty($times))
-                    <div class="flex items-center gap-3 mt-3">
-                        @foreach ($times as $time)
-                            <flux:badge as="button" wire:click="setStartTime('{{ $time }}')" variant="pill"
-                                :class="$time == $chooseTime ? '!bg-[#004972] !text-[#F2F9FB] !font-bold' : '!bg-[#F2F9FB] !text-[#01A6CD] !font-bold'"
-                            >
-                                {{ $time }}
-                            </flux:badge>
-                        @endforeach
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3 mt-3">
+                            @foreach ($times as $time)
+                                <flux:badge as="button" wire:click="setStartTime('{{ $time }}')" variant="pill"
+                                    :class="$time == $chooseTime ? '!bg-[#004972] !text-[#F2F9FB] !font-bold' : '!bg-[#F2F9FB] !text-[#01A6CD] !font-bold'"
+                                >
+                                    {{ \Carbon\Carbon::createFromFormat('H:i:s', $time)->format('H:i') }}
+                                </flux:badge>
+                            @endforeach
+                        </div>
+                        @if ($chooseTime)
+                            <p class="text-[#004972] font-bold text-base mt-3">{{ $seatAvailable }} seat avilable</p>
+                        @endif
                     </div>
                 @endif
 

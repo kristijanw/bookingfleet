@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ExcursionDateTime extends Model
@@ -12,9 +13,10 @@ class ExcursionDateTime extends Model
         'excursion_date_id',
     ];
 
-    protected $casts = [
-        'time' => 'datetime',
-    ];
+    public function setTimeAttribute($value)
+    {
+        $this->attributes['time'] = Carbon::parse($value)->format('H:i');
+    }
 
     public function excursionDate()
     {

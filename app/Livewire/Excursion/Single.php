@@ -4,6 +4,7 @@ namespace App\Livewire\Excursion;
 
 use App\Facades\Cart;
 use App\Models\Excursion;
+use App\Models\ExcursionDate;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -43,7 +44,7 @@ class Single extends Component
 
     public function mount()
     {
-        $excursion = Excursion::with('excursionTime', 'category')->where('id', $this->id)->first();
+        $excursion = Excursion::with('excursionDate', 'category')->where('id', $this->id)->first();
 
         $this->excursion = $excursion;
 
@@ -53,8 +54,8 @@ class Single extends Component
 
         $this->totalPrice = $excursion->price;
 
-        foreach ($excursion->excursionTime as $time) {
-            $date = Carbon::parse($time->date)->toDateString();
+        foreach ($excursion->excursionDate as $date) {
+            $date = Carbon::parse($date->date)->toDateString();
             $this->availableDates[] = $date;
         }
 
@@ -64,7 +65,11 @@ class Single extends Component
 
     public function setStartTime($time)
     {
-        $this->chooseTime = $time;
+        $excursionDate = ExcursionDate::with('excursionDateTimes')->where('date', $this->selectedDate)->first();
+        $excursionDateTime = $excursionDate->excursionDateTimes()->where('time', $time)->first();
+
+        $this->chooseTime = $excursionDateTime->time;
+        $this->seatAvailable = $excursionDateTime->available_seats;
     }
 
     public function updateCount($type, $operation)
@@ -122,25 +127,31 @@ class Single extends Component
         $this->adult_eat = array_fill(0, $this->countAdults, 'fish');
         $this->children_eat = array_fill(0, $this->countChildren, 'fish');
 
-        $excursionTime = Excursion::with('excursionTime')->where('id', $id)->first();
+        $excursion = Excursion::with('excursionDate')->where('id', $id)->first();
 
-        if (!$excursionTime) {
+        if (!$excursion) {
             $this->times = [];
             return;
         }
 
-        $this->totalPrice = $excursionTime->price;
+        $this->totalPrice = $excursion->price;
 
         $this->times = [];
         $this->selectedDate = Carbon::parse($datum);
 
-        foreach ($excursionTime->excursionTime as $time) {
-            $excursionDate = Carbon::parse($time->date);
-            $selectedDate = Carbon::parse($datum);
+        $excursionDate = $excursion->excursionDate()->with('excursionDateTimes')->where('date', $datum)->first();
 
-            if ($excursionDate->isSameDay($selectedDate)) {
-                $this->times = array_merge($this->times, $time->start_time);
-                $this->seatAvailable = $time->capacity;
+        if (!$excursion->excursionDate) {
+            $this->times = [];
+            return;
+        }
+
+        $excursionDateStart = Carbon::parse($excursionDate->date);
+        $selectedDate = Carbon::parse($datum);
+
+        if ($excursionDateStart->isSameDay($selectedDate)) {
+            foreach ($excursionDate->excursionDateTimes as $time) {
+                $this->times[] = $time->time;
             }
         }
     }
